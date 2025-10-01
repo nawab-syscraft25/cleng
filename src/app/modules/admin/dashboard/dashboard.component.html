@@ -1,0 +1,352 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <div class="pageHeader m-0">
+          <h1>Dashboard</h1>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="pageHeader m-0">
+          <h1 class="d-inline">C.A.M</h1> - <span class="d-inline-block pb-3">CLENG Asset Monitoring
+            reliability platform</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="selectOptions1 float-right">
+          <select class="form-control" *ngIf="assign" #dashboarDropdpwn [(ngModel)]="companyId"
+            (change)="getCompanyId(dashboarDropdpwn.value)" style="width: 180px;">
+            <option *ngFor="let data of assignedCompany" [value]="data.companyId">{{data.companyName}}
+            </option>
+          </select>
+          <div *ngIf="noAssign">No Company Assigned To User</div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header d-flex">
+            Plant History
+          </div>
+          <div class="card-body">
+            <div class="row" *ngIf="dashboardGraphValues.length > 0">
+              <div class="col-md-10 col-sm-9">
+                <div id="chart" style="text-align:center; width: 100%;">
+                  <apx-chart [series]="dashboardGraphValues!" [chart]="chartOptions.chart!" [xaxis]="categories!"
+                    [stroke]="chartOptions.stroke!" [tooltip]="chartOptions.tooltip!"
+                    [dataLabels]="chartOptions.dataLabels!" [legend]="chartOptions.legend!"
+                    [markers]="chartOptions.markers!" [grid]="chartOptions.grid!" [yaxis]="chartOptions.yaxis!"
+                    [title]="chartOptions.title!" [colors]="chartOptions.colors!">
+                  </apx-chart>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-3">
+                <div class="Status-icon mobile-res">
+                  <div class="topIcons text-center">
+                    <i class="pt-2 fa-2x fa fa-bell text-danger"></i>
+                    <div class="card-body p-0">
+                      <p><strong>Warning</strong> {{percOfWarning}}% <br> {{lastWarning}} Machines
+                      </p>
+                    </div>
+                  </div>
+                  <div class="topIcons text-center">
+                    <i class="pt-2 fa-2x fa fa-exclamation-triangle text-warning"></i>
+                    <div class="card-body p-0">
+                      <p><strong>Caution</strong> {{percOfCaution}}% <br> {{lastCaution}} Machines
+                      </p>
+                    </div>
+                  </div>
+                  <div class="topIcons text-center">
+                    <i class="pt-2 fa-2x fa fa-check text-success"></i>
+                    <div class="card-body p-0">
+                      <p><strong>Acceptable</strong> {{percOfAcceptable}}% <br> {{lastAcceptable}}
+                        Machines
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="dashboardGraphValues.length == 0" class="text-center">
+              Not Found Data
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-9 col-sm-9">
+                Plant Machines Condition ( {{reportDate | date: 'dd-MM-yyyy'}} )
+              </div>
+              <div class="col-md-3 col-sm-3">
+                <div class="selectOptions">
+                  <select class="form-control" #filterValue (change)="onSelect(filterValue.value)">
+                    <option selected disabled>Filter Alarms</option>
+                    <option value="all">All</option>
+                    <option value="6"> Caution</option>
+                    <option value="7"> Warning</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="card-body">
+            <div class="row">
+            </div>
+            <div class="row">
+
+
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="table-responsive tablePanel left-table customResponsiveTable ">
+                  <table class="table table-bordered table-hover tableBodyScroll">
+                    <thead>
+                      <tr>
+                        <th>CMP No.</th>
+                        <th>Area</th>
+                        <th>Asset ID</th>
+                        <th>Date of Reading</th>
+                        <th>Current Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of companyReadingData1">
+
+                        <td data-label="CMP No."><a>
+                            {{data.companyNo}}
+                          </a></td>
+                        <td data-label="Area">{{data.companyArea}}</td>
+                        <td data-label="Asset ID">
+                          <div>{{data.assetId}}</div>
+                        </td>
+                        <td data-label="Date of Reading">{{data.dateOfReading
+                          |date:'dd-MM-yyyy'}}</td>
+                        <td data-label="Current Status">
+                          <div class="hoverClass cursor-pointer">
+                            <div [class.cross]="data.cross" [ngStyle]="{'background-color': data.globalCodeName}"
+                              (click)="openModal(data)"
+                              (mouseleave)="mouseLeaveHidePopOut(data.assetId, 1, data.companyReportDetailReadingId)"
+                              on-mouseover='leftPopUpHover(data.companyReportDetailReadingId, data.originalColor, data.assetId, data.companyArea)'>
+                              &nbsp;
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="notFound" class="notFoundResponsive">
+                        <td colspan="5" class="text-center p-3">Company Detail Readings not
+                          exist</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="table-responsive tablePanel right-table customResponsiveTable">
+                  <table class="table table-bordered table-hover tableBodyScroll ">
+                    <thead>
+                      <tr>
+                        <th>CMP No.</th>
+                        <th>Area</th>
+                        <th>Asset ID</th>
+                        <th>Date of Reading</th>
+                        <th>Current Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of companyReadingData2">
+
+                        <td data-label="CMP No."><a>
+                            {{data.companyNo}}
+                          </a></td>
+                        <td data-label="Area">{{data.companyArea}}</td>
+                        <td data-label="Asset ID">
+                          <div>{{data.assetId}}</div>
+                        </td>
+                        <td data-label="Date of Reading">{{data.dateOfReading
+                          |date:'dd-MM-yyyy'}}</td>
+                        <td data-label="Current Status">
+                          <div class="hoverClass cursor-pointer">
+                            <div [class.cross]="data.cross" [ngStyle]="{'background-color': data.globalCodeName}"
+                              (click)="openModal(data)"
+                              (mouseleave)="mouseLeaveHidePopOut(data.assetId, 2, data.companyReportDetailReadingId)"
+                              on-mouseover='rightPopUpHover(data.companyReportDetailReadingId, data.originalColor, data.assetId, data.companyArea)'>
+                              &nbsp;
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="notFound" class="notFoundResponsive">
+                        <td colspan="5" class="text-center p-3">Company Detail Readings not
+                          exist</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<div class="graphDataTable">
+  <app-full-cm-report style="display: none;"></app-full-cm-report>
+
+</div>
+<div class="graphDataTable">
+  <div class="customModal" *ngFor="let popOutData of popOutfinalData">
+    <div id="alarmReport" [class.rightTableColorStatus]="popOutData.left"
+      [class.leftTableColorStatus]="popOutData.right" class="modal1 fade1 custom-modal d-none" role="dialog"
+      *ngIf="showModal">
+      <div class="modal-dialog asset-alarm-report-popup">
+
+        <div class="modal-content border">
+          <div class="modal-header">
+            <h4 class="modal-title mb-0">Asset Alarm Report</h4>
+
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive tablePanel">
+              <table class="table table-bordered table-hover  tableBodyScroll mb-0">
+                <thead>
+                  <tr>
+                    <th>Area </th>
+                    <th>Asset ID</th>
+                    <th>Date of reading</th>
+                    <th>Brg </th>
+                    <th>Value </th>
+                    <th>Vibration Type</th>
+                    <th>Units mms/s, G </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="notEmpty">
+                    <td data-label="Area">{{popOutData.CompanyArea}}</td>
+                    <td data-label="Asset ID">{{popOutData.AssetId}}</td>
+                    <td data-label="Date of reading">{{popOutData.ReportDate |date:'dd-MM-yyyy'}}
+                    </td>
+                    <td data-label="Brg">{{popOutData.Brgid}}</td>
+                    <td data-label="Value">{{popOutData.Value}}</td>
+                    <td data-label="VibrationType">{{popOutData.VibrationType}}</td>
+                    <td data-label="Units mms/s">{{popOutData.UnitType}}</td>
+                  </tr>
+                  <tr *ngIf="emptyData">
+                    <td colspan="7" class="text-center p-3">Not Found Record</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h2 class="text-center m-0" *ngIf="notEmpty">{{popOutData.VibrationType}}</h2>
+
+            <div class="graph-image" *ngIf="notEmpty">
+              <div *ngIf="popOutData.ImageUrl != null">
+                <img class="w-100" [src]="api+'/Upload/Graph/Image/'+popOutData.ImageUrl">
+              </div>
+              <div class="text-center graphNotFound" *ngIf="popOutData.ImageUrl == null">
+                No graph image Found
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12">
+
+                  <div class="detailText">
+                    <h3 class="mb-0">Primary Issue </h3>
+                    <p class="mb-0" *ngIf="notEmpty">{{popOutData.PrimaryIssue}}</p>
+                  </div>
+
+                  <div class="detailText">
+                    <h3 class="mb-0">Secondary Issue </h3>
+                    <p class="mb-0" *ngIf="notEmpty">{{popOutData.SecondaryIssue}}</p>
+                  </div>
+
+                  <div class="detailText">
+                    <h3 class="mb-0">Recommendations </h3>
+                    <p class="mb-0" *ngIf="notEmpty">{{popOutData.LongDescription}}</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="customModal" *ngIf="emptyPopOut">
+    <div id="alarmReport" [class.rightTable]="rightTable" [class.leftTable]="leftTable"
+      class="modal1 fade1 custom-modal" role="dialog" *ngIf="showModal">
+      <div class="modal-dialog asset-alarm-report-popup">
+
+        <div class="modal-content border">
+          <div class="modal-header">
+            <h4 class="modal-title mb-0">Asset Alarm Report</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive tablePanel">
+              <table class="table table-bordered table-hover  tableBodyScroll mb-0">
+                <thead>
+                  <tr>
+                    <th>Area </th>
+                    <th>Asset ID</th>
+                    <th>Date of reading</th>
+                    <th>Brg </th>
+                    <th>Value </th>
+                    <th>Vibration Type</th>
+                    <th>Units mms/s, G </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="7" class="text-center p-3">Not Found Record</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-center graphNotFound" style="margin: 90px;">
+              No graph image Found
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12">
+
+                  <div class="detailText">
+                    <h3 class="mb-0">Primary Issue </h3>
+                  </div>
+
+                  <div class="detailText">
+                    <h3 class="mb-0">Secondary Issue </h3>
+                  </div>
+
+                  <div class="detailText">
+                    <h3 class="mb-0">Recommendations </h3>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

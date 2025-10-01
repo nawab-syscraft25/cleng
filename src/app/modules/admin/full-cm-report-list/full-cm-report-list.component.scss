@@ -1,0 +1,31 @@
+.btn-black{
+    padding: 0px 15px;
+}
+input.pdfInputFile{
+    width: 100%;
+    position: absolute;
+    height: 30px;
+    left: 0;
+    cursor: pointer;
+    font-size: 15px;
+    opacity: 0.0;
+}
+
+#myButton{
+    cursor: pointer;
+    width: 25px;
+    top: 5px;
+    position: relative;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+@media (max-width: 568px){
+    .float-right{
+        float: left !important;
+    }
+    .btn-black{
+        margin-top: 10px;
+    }
+}

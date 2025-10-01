@@ -1,0 +1,282 @@
+<form #reportWizard="ngForm" (ngSubmit)="reportWizard.valid && submit(reportWizard);reportWizard.reset()" novalidate>
+  <div class="create-user">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-12">
+          <div class="form-group widthLimit"
+            [class.has-error]="(submitted || vibrationTypeIdControl.touched) && vibrationTypeIdControl.invalid">
+            <mat-form-field appearance="outline">
+              <mat-label>Vibration type</mat-label>
+              <mat-select id="vibrationTypeId" class="form-control border-0" name="vibrationTypeId"
+                (selectionChange)="formChanged1($event,'vibrationTypeId')" [(ngModel)]="readingIssue.vibrationTypeId"
+                required #vibrationTypeIdControl="ngModel">
+
+                <mat-option *ngFor="let vibration of vibrationType"
+                  [value]="vibration.globalCodeId">{{vibration.codeName}}</mat-option>
+
+              </mat-select>
+            </mat-form-field>
+            <span>Please fill the field</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group widthLimit"
+            [class.has-error]="(submitted || valueControl.touched) && valueControl.invalid">
+            <mat-form-field appearance="outline">
+              <mat-label>Value</mat-label>
+              <input matInput class="form-control" type="number" [(ngModel)]="readingIssue.value" name="value"
+                (change)="formChanged($event)" required #valueControl="ngModel" />
+            </mat-form-field>
+            <span>Please fill the field</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group widthLimit"
+            [class.has-error]="(submitted || unitControl.touched) && unitControl.invalid">
+            <mat-form-field appearance="outline">
+              <mat-label>Units</mat-label>
+
+              <mat-select id="unitsId" class="form-control border-0" [(ngModel)]="readingIssue.unitsId" name="unitsId"
+                (selectionChange)="formChanged1($event,'unitsId')" required #unitControl="ngModel">
+
+                <mat-option *ngFor="let unit of unitType" [value]="unit.globalCodeId">{{unit.codeName}}</mat-option>
+
+              </mat-select>
+            </mat-form-field>
+            <span>Please fill the field</span>
+
+          </div>
+        </div>
+
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <mat-form-field appearance="outline">
+              <mat-label>Brg Id</mat-label>
+              <mat-select id="brgId" class="form-control border-0" [(ngModel)]="readingIssue.brgId" name="brgId"
+                (selectionChange)="formChanged1($event,'brgId')" required #brgIdControl="ngModel">
+
+                <mat-option *ngFor="let unit of brgType" [value]="unit.globalCodeId">{{unit.codeName}}</mat-option>
+              </mat-select>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <span class="smCaption">Drop the graph</span>
+            <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+
+              <input type="file" #fileDropRef id="fileDropRef" multiple
+                (change)="fileBrowseHandler($any($event.target).files)" />
+              <img class="dropFileIcon" src="assets/img/dnd/ic-upload-file.svg" alt="">
+              <div class="dropImageSize">( Dimentions: 950 x 650 )</div>
+              <h3>Drag and drop file here</h3>
+              <h3>or</h3>
+              <label for="fileDropRef">Browse for file</label>
+            </div>
+            <div class="files-list">
+              <div class="single-file" *ngFor="let file of dragFiles; let i = index">
+                <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+                <div class="info">
+                  <h4 class="name">
+                    {{ file?.name }}
+                  </h4>
+                  <p class="size">
+                    {{ formatBytes(file?.size) }}
+                  </p>
+                  <app-progress-bar [progress]="file?.progress"></app-progress-bar>
+                </div>
+                <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file"
+                  (click)="dragDeleteFile(i)">
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="existing-media" *ngIf="readingIssue?.graphImageExsisting">
+            <h4>Existing Drag And Drop File</h4>
+            <div class="row">
+              <div class="col-4 mb-2">
+                <div class="browseImage">
+                  <img [src]="serverDragImagePath(readingIssue.graphImageExsisting)" title="image" class="w-100 h-100">
+                  <i class="fa fa-times text-danger removeImage" (click)="deleteBrowseImage()"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit"
+            [class.has-error]="(submitted || primaryissueControl.touched) && primaryissueControl.invalid">
+            <mat-form-field appearance="outline">
+              <mat-label>Primary Issue</mat-label>
+              <textarea matInput type="text" class="form-control mHeight" [(ngModel)]="readingIssue.primaryIssue"
+                name="primaryIssue" (change)="formChanged($event)" required #primaryissueControl="ngModel"></textarea>
+            </mat-form-field>
+            <span>Please fill the field</span>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <mat-form-field appearance="outline">
+              <mat-label>Secondary Issue</mat-label>
+              <textarea matInput type="text" class="form-control mHeight" [value]="readingIssue.secondaryIssue"
+                name="secondaryIssue" (change)="formChanged($event)"></textarea>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <mat-form-field appearance="outline">
+              <mat-label>Recommendations Issue ( long description )</mat-label>
+              <textarea matInput type="text" class="form-control mHeight" [value]="readingIssue.longDescription"
+                name="longDescription" (change)="formChanged($event)"></textarea>
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+
+            <mat-form-field appearance="outline">
+              <mat-label>Recommendations Issue ( short description )</mat-label>
+              <textarea matInput type="text" class="form-control mHeight" [value]="readingIssue.shortDescription"
+                name="shortDescription" (change)="formChanged($event)"></textarea>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit"
+            [class.has-error]="(submitted || primaryfaultControl.touched) && primaryfaultControl.invalid">
+            <mat-form-field appearance="outline">
+              <mat-label>Primary Fault.</mat-label>
+              <mat-select id="cpny" class="form-control border-0" [(ngModel)]="readingIssue.primaryFaultId"
+                name="primaryFaultId" (selectionChange)="formChanged1($event,'primaryFaultId')" required
+                #primaryfaultControl="ngModel">
+                <mat-option *ngFor="let fault of faultIds" [value]="fault.globalCodeId">{{fault.codeName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span>Please fill the field</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <mat-form-field appearance="outline">
+              <mat-label>Secondary Fault.</mat-label>
+              <mat-select id="cpny" class="form-control border-0" [value]="readingIssue.secondaryFalutId"
+                name="secondaryFalutId" (selectionChange)="formChanged1($event,'secondaryFalutId')" required>
+                <mat-option *ngFor="let fault of faultIds" [value]="fault.globalCodeId">{{fault.codeName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <mat-form-field appearance="outline">
+              <mat-label>Priority</mat-label>
+              <mat-select id="cpny" class="form-control border-0" [value]="readingIssue.priorityNoId"
+                name="priorityNoId" (selectionChange)="formChanged1($event,'priorityNoId')" required>
+                <mat-option *ngFor="let priority of priorityNo"
+                  [value]="priority.globalCodeId">{{priority.codeName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <label for="usr">Insert Image*</label>
+            <div class="row switchCOl">
+              <div class="col-12 mt-4 refullWidth">
+                <div id="myButton">
+                  <input id="issueImages" name="issuesImages" type="file" multiple accept="image/*"
+                    (change)="uploadFiles($event)" />
+
+                </div>
+                <div class="existingImages">
+                  <div class="row">
+                    <div class="col-4 mb-4 rsHalfCol" *ngFor="let image of readingIssue?.issuesImages;let i=index">
+                      <div class="existingImagesThumb">
+                        <img [src]="image | safeUrl" title="image" class="w-100 h-100">
+                        <i class="fa fa-times text-danger removeImage" (click)="deleteFile('issuesImages', i)"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="existing-media existingImages" *ngIf="readingIssue?.systemImagesResponses">
+                  <h4>Existing Images</h4>
+                  <div class="row">
+                    <div class="col-4 mb-4 rsHalfCol"
+                      *ngFor="let image of readingIssue?.systemImagesResponses;let i=index">
+                      <div class="existingImagesThumb">
+                        <img [src]="serverImagePath(image.imageUrl)" title="image" class="w-100 h-100">
+                        <i class="fa fa-times text-danger removeImage" (click)="deleteSystemImageFile(i)"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group widthLimit">
+            <label for="eml">Insert Video*</label>
+            <div class="row switchCOl">
+              <div class="col-12 mt-4 refullWidth">
+                <div id="myButton">
+                  <input id="issuesVideos" type="file" multiple name="issuesVideos" accept="video/*"
+                    (change)="uploadFiles($event)">
+
+                </div>
+                <div class="existingImages">
+                  <div class="row">
+                    <div class="col-4 mb-4 rsHalfCol" *ngFor="let video of readingIssue?.issuesVideos;let i=index">
+                      <div class="existingVideoThumb">
+                        <img src="assets/images/video-thumb.png" title="image" class="w-100 h-100">
+                        <!-- <label>{{video.name}}</label> -->
+                        <i class="fa fa-times text-danger removeVideo" (click)="deleteFile('issuesVideos', i)"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="existing-media existingImages" *ngIf="readingIssue?.systemVideoResponses">
+                  <h4>Existing Videos</h4>
+                  <div class="row">
+                    <div class="col-4 mb-4 rsHalfCol"
+                      *ngFor="let video of readingIssue?.systemVideoResponses;let i=index">
+                      <div class="existingVideoThumb">
+                        <a [href]="serverVideoPath(video.imageUrl)" target="_blank">
+                          <img src="assets/images/video-thumb.png" title="image" class="w-100 h-100">
+                        </a>
+                        <i class="fa fa-times text-danger removeVideo" (click)="deleteSystemVideoFile(i)"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>

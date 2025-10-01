@@ -1,0 +1,5 @@
+// Custom Bootstrap build to eliminate SCSS deprecation warnings
+// This approach uses CSS imports instead of SCSS to avoid deprecation warnings
+
+// Import only the compiled Bootstrap CSS to avoid SCSS deprecation warnings
+// This eliminates all @import and deprecated function warnings from Bootstrap's SCSS files

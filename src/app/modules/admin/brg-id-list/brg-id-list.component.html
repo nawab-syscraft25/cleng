@@ -1,0 +1,81 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row" id="printDiv">
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">Add BRG Id</div>
+              <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="form.valid && createGlobalCode()" novalidate>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group mb-0">
+                        <mat-form-field appearance="outline" class="d-block">
+                          <mat-label>Code Name</mat-label>
+                          <input matInput type="text" class="form-control" [(ngModel)]="codeName"
+                            placeholder="Enter Code Name" name="codeName" required>
+                          <mat-error *ngIf="!codeName">Code name is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <button type="submit" class="btn btn-black mt-1 pt-1 pb-1 float-right">Create</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">BRG ID List</div>
+              <div class="card-body">
+                <form action="#">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="my-custom-scrollbar">
+                        <div class="table-responsive tablePanel table-wrapper-scroll-y">
+                          <table id="dtBasicExample" class="table table-bordered table-hover tableBodyScroll">
+                            <thead>
+                              <tr>
+                                <th>Code Name</th>
+                                <th>Description</th>
+                                <th>Is Active</th>
+                                <th style="display: none;" width="200px" class="text-center">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let unit of brgType">
+                                <td data-label="name">{{unit.codeName}}</td>
+                                <td data-label="description">{{unit.description}}</td>
+                                <td class="text-capitalize" data-label="isActive">{{unit.isActive}}</td>
+                                <td style="display: none;" data-label="action" class="text-center">
+                                  <a class="actionButtons" title="Edit">
+                                    <i class="fa-lg fa fa-pencil text-success"></i>
+                                  </a>&nbsp;
+                                  <a class="actionButtons" title="delete">
+                                    <i class="fa-lg fa fa-trash text-danger"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                              <tr *ngIf="notFound">
+                                <td colspan="3" class="text-center p-3">No Record Found</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

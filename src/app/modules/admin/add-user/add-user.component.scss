@@ -1,0 +1,17 @@
+.fa:hover {
+    color: #ed7602;
+}
+.d-flex{
+    justify-content: space-between;
+}
+.mat-form-field {
+    display: block!important;
+}
+
+.show-error{
+    position: relative;
+    top: -20px;
+    left: 15px;
+    font-size: 12px;
+    animation: cdk-text-field-autofill-end 0s 1ms;
+}

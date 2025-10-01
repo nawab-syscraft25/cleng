@@ -1,0 +1,172 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="pageHeader d-inline-block mb-2">
+              <h1 class="m-0">Prescriptive Maintenance</h1> <span class="text-size-2"> ( {{companyName}}
+                )</span>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="btn-group lastMonthsdata" role="group" aria-label="Basic example">
+              <button type="button" (click)="monthly()" [class.monthBtnHighlight]="monthBtnHighlight"
+                class="btn btn-secondary yearMonthbtn commonClass">Monthly</button>
+              <button type="button" (click)="yearly()" [class.yearBtnHighlight]="yearBtnHighlight"
+                class="btn btn-secondary yearMonthbtn commonClass pl-3 pr-3">Yearly</button>
+            </div>
+
+          </div>
+
+          <div class="col-md-4 alighRight">
+            <div class="btn-group " role="group" aria-label="Basic example" *ngIf="chartButtons">
+              <button type="button" (click)="pieChartBtn()" [class.pieBtnHighlight]="pieBtnHighlight"
+                class="btn btn-secondary btn-black commonClass">Pie Chart</button>
+              <button type="button" (click)="barChartBtn()" [class.barBtnHighlight]="barBtnHighlight"
+                class="btn btn-secondary btn-black commonClass">Bar Chart</button>
+            </div>
+            <div (click)="print()" id="inputprintbutton1" class="btn btn-black printDoc">Print</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div id="printDiv">
+          <div class="card">
+            <div class="card-body">
+
+              <div *ngIf="monthlyChart">
+                <div id="monthlyR" style="display: none;">
+                  <h3 class="text-center">Monthly Report</h3>
+                </div>
+                <div class="create-user" *ngFor="let data of prescriptiveMaintenanceList; let i = index">
+
+                  <div class="row">
+
+                    <div class="col-md-6">
+                      <div class="table-responsive tablePanel left-table">
+                        <table class="table-bordered table-hover tableBodyScroll w-100">
+                          <thead>
+                            <tr>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '1'">January (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '2'">Febuary (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '3'">March (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '4'">April (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '5'">May (
+                                {{data.FaultYear}}
+                                )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '6'">June (
+                                {{data.FaultYear}}
+                                )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '7'">July (
+                                {{data.FaultYear}}
+                                )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '8'">August (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '9'">September (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '10'">October (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '11'">November (
+                                {{data.FaultYear}} )</th>
+                              <th colspan="2" class="text-center" *ngIf="data.FaultMonth == '12'">December (
+                                {{data.FaultYear}} )</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let faultName of allFaultType">
+                              <td class="faultName">{{faultName}}</td>
+                              <td class="text-right">{{data[faultName]}}</td>
+                            </tr>
+                            <!-- <tr>
+                                <td >Electrical</td>
+                                <td class="text-right">{{data.electrical}}</td>
+                              </tr>
+                              <tr>
+                                <td>Mounts</td>
+                                <td class="text-right">{{data.mounts}}</td>
+                              </tr>
+                              <tr>
+                                <td>Balancing</td>
+                                <td class="text-right">{{data.balancing}}</td>
+                              </tr>
+                              <tr>
+                                <td>Bearings</td>
+                                <td class="text-right">{{data.bearings}}</td>
+                              </tr>
+                              <tr>
+                                <td>Other</td>
+                                <td class="text-right">{{data.other}}</td>
+                              </tr> -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="chartsDiv">
+                        <div id="pieChart" *ngIf="showPieChart">
+                          <apx-chart [series]="data.chartData!" [chart]="PieChartOptions.chart!" [labels]="data.lables!"
+                            [responsive]="PieChartOptions.responsive!"></apx-chart>
+                        </div>
+
+                        <div id="barChart" *ngIf="showBarChart">
+                          <apx-chart [series]="data.barChartData!" [chart]="BarChart.chart!"
+                            [dataLabels]="BarChart.dataLabels!" [plotOptions]="BarChart.plotOptions!"
+                            [yaxis]="BarChart.yaxis!" [xaxis]="data.xaxis!" [stroke]="BarChart.stroke!"
+                            [grid]="BarChart.grid!" [fill]="BarChart.fill!"
+                            [annotations]="BarChart.annotations!"></apx-chart>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+              <div *ngIf="yearlyChart">
+                <div id="yearlyR" style="display: none;">
+                  <h3 class="text-center">Yearly Report</h3>
+                </div>
+                <div id="chart" class="mb-4">
+                  <apx-chart [series]="yearGraphData!" [chart]="chartOptions.chart!" [xaxis]="category!"
+                    [stroke]="chartOptions.stroke!" [tooltip]="chartOptions.tooltip!"
+                    [dataLabels]="chartOptions.dataLabels!" [legend]="chartOptions.legend!"
+                    [markers]="chartOptions.markers!" [grid]="chartOptions.grid!" [yaxis]="chartOptions.yaxis!"
+                    [title]="chartOptions.title!"></apx-chart>
+                </div>
+                <div class="table-responsive tablePanel left-table">
+                  <table class="table-bordered table-hover tableBodyScroll w-100">
+                    <thead>
+                      <tr>
+                        <th *ngFor="let list of headingData | keyvalue: returnZero">{{list.key}}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of PrescriptiveMaintenanceYealyData">
+                        <td *ngFor="let list of headingData | keyvalue: returnZero">
+                          {{data[list.key+ '']}}</td>
+                          <!-- Syscraft change -->
+                          <!-- {{data[list.key]}} -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

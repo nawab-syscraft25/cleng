@@ -1,0 +1,32 @@
+.mainContent{
+    .pageHeader {
+        margin: 0 0 5px 0 !important;
+    }
+    .card{
+        .card-body{
+            .my-custom-scrollbar {
+                height: 280px !important;
+            }
+        }
+    }
+}
+
+@media (max-width:568px){
+    .selectOptions{
+        margin-bottom: 20px;
+    }
+}
+
+.alarmColor{
+    display: none;
+}
+
+.hide {
+    display: none !important;
+}
+
+.csvImage{
+    width: 20px;
+    cursor: pointer;
+}
+

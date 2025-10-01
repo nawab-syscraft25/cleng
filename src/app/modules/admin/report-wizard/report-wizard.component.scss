@@ -1,0 +1,26 @@
+input#myFile{
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 5px;
+    z-index: 2;
+    opacity: 0.0;
+}
+#myButton{
+    position: absolute;
+    cursor: pointer;
+    width: auto;
+    padding: 0px;
+    top: -10px;
+}
+.removeImage{
+    right: 17px;
+    position: absolute;
+    top: 0;
+}
+mat-checkbox{
+    position: relative;
+    top: 5px;
+}

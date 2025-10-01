@@ -1,0 +1,46 @@
+<div class="sectionBg" [class.show]="overlay"></div>
+<nav class="navbar navbar-expand-lg navbar-transparent fixed-top">
+  <img [routerLink]="['/admin/dashboard']" src="assets/images/logo.png" class="w-auto cursor-pointer" alt="image"
+    style="margin:10px; height: 35px">
+  <div class="navbarWrapper">
+    <div class="container-fluid">
+      <button mat-button="" type="button" (click)="toggle()" class="navbar-toggler btn-no-ripple">
+        <i *ngIf="barIcon" class="fa fa-bars" aria-hidden="true"></i>
+        <span *ngIf="crossIcon"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </button>
+
+      <div id="navigation" class="collapse navbar-collapse justify-content-end">
+        <div class="search-field mr-auto">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group" [hidden]="hasPrescriptive">
+              <div class="input-group-prepend bg-transparent">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input type="text" (keyup)="searchFilter($event)" class="form-control bg-transparent border-0"
+                placeholder="Search ...">
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a (click)="qrScanCode()" class="nav-link cursor-pointer"><i aria-hidden="true"
+                class="fa fa-qrcode"></i>Scan QR</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#pablo" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-user" aria-hidden="true"></i> <span>{{userName}} <span class="caretIcon"><i
+                    class="fa fa-chevron-down"></i></span></span>
+            </a>
+            <ul class="dropdown-menu profileNotification">
+              <li><a [routerLink]="['/forgot-password']"><i class="fa fa-unlock-alt" aria-hidden="true"></i> Reset
+                  Password</a></li>
+              <li><a [routerLink]="['/login']" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<app-sidebar [showsidebar]="showSidebar" [crossIcon]="crossIcon" [barIcon]="barIcon" [overlay]="overlay"></app-sidebar>

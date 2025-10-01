@@ -1,0 +1,121 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pageHeader mb-3">
+          <h1>Messages</h1>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            Asset Message Board
+          </div>
+          <div class="card-body">
+            <div class="border">
+              <div class="pr-2 pl-2 pt-3">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex" style="justify-content: space-between;">
+                      <strong class="d-inline-block">New Message for {{assetId}}</strong>
+                      <i (click)="addMessage()"
+                        class="cursor-pointer d-inline-block fa fa-paper-plane fa-lg float-right msg-icon"></i>
+                    </div>
+                    <hr class="float-left w-75">
+                  </div>
+                  <div class="col-sm-8 col-12">
+                    <textarea type="text" placeholder="Enter your massage here..."
+                      class="form-control mHeight border-0 bg-white" [(ngModel)]="msgInputTxt"></textarea>
+                  </div>
+                  <div class="col-sm-4 col-12 text-center attachmentWrapper">
+
+                    <form>
+                      <div class="form-group mb-0" style="display: -webkit-inline-box;">
+                        <fieldset class="form-group mb-0 d-flex">
+
+                          <label>Click or drag an attachment here</label>
+                          <div class="custom-file fileInputProfileWrap m-auto">
+
+
+                            <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile">
+                            <div class="img-space">
+
+
+                              <img src="assets/img/dnd/ic-file.svg" class="img-responsive">
+
+
+                            </div>
+                            <div *ngIf="imageType">
+                              File Exist
+                            </div>
+                            <div>
+
+                            </div>
+
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div class="pb-3 mt-2">Size limit of 50MB</div>
+                    </form>
+
+
+                  </div>
+                  <div class="col-12 p-0" *ngFor="let list of messagesList; let i = index">
+                    <div class="list padding row">
+                      <div class="col-sm-12 col-md-10 word-break">
+                        <div class="mb-3"><strong class="text-primary">{{list.messageFrom}}</strong> on
+                          {{list.messageDate |date: 'MM-dd-yyyy'}}</div>
+                        <div>{{list.messageDescription}}</div>
+                        <i class="fa fa-caret-left fa-3x list-icon"></i>
+                      </div>
+                      <div class="col-sm-12 col-md-2">
+                        <div class="iconFont text-center text-primary">
+                          <div class="cursor-pointer pb-2" (click)="editMessage(list)">
+                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Message
+                          </div>
+                          <div class="cursor-pointer pb-2" (click)="deleteMessage(list.messageId)">
+                            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> Message
+                          </div>
+                          <div class="cursor-pointer" *ngIf="list.imagesResponse != null">
+                            <a [href]="api+list.imagesResponse.imageUrl" class="cursor-pointer" target="_blank">
+                              <div *ngIf="list.imagesResponse.imageSourceName == 'Images' ">
+                                <img [src]="api+list.imagesResponse.imageUrl" width="50px">
+                              </div>
+                              <div *ngIf="list.imagesResponse.imageSourceName == 'Videos' ">
+                                <video width="50" height="50" controls>
+                                  <source [src]="api+list.imagesResponse.imageUrl" type="video/mp4">
+                                </video>
+                              </div>
+                              <div class="pdfImage"
+                                *ngIf="list.imagesResponse.imageUrl.split('.')[1] == 'pdf' && list.imagesResponse.imageUrl.split('.')[1] != 'pdf'">
+                                <img src="assets/images/pdf-icon.png" style="width: 35px; margin-top:-3px;">
+                              </div>
+
+
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 p-0" *ngIf="notFound">
+                    <div class="list padding row d-flex" style="justify-content: center;">
+                      No Data Found
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white"> Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,47 @@
+.fa:hover {
+    color: #ed7602;
+}
+.hoverClass{
+    transform: translate(0, 30px);
+    padding: 5px 20px 5px 20px;
+   &:hover{
+    background-color: #ed7602;
+    border-color: #ed7602;
+   }
+}
+.buttons{
+    justify-content: center;
+    .btn-dark{
+        &:hover{
+            background-color: #ed7602;
+            border-color: #ed7602;
+           }
+    }
+}
+.uploadImage{
+    position: relative;
+}
+input.pdfInputFile{
+    width: 100%;
+    position: absolute;
+    height: 30px;
+    left: -10px;
+    top: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    opacity: 0.0;
+}
+
+#myButton{
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+}
+
+.assetImage{
+    img{
+        margin: auto;
+        width: 50px;
+    }
+}
+

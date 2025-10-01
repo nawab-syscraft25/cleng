@@ -1,0 +1,230 @@
+.mainContent .card .card-body .thumbImageNew {
+    margin: 0 0 20px 0;
+}
+.mainContent .card .card-body .thumbImageNew img {
+    max-width: 100%;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.imgHeight{
+    height: 150px;
+    // object-fit: cover;
+}
+.slide video {
+    width: 100%;
+    height: 140px;
+    background-color: #000;
+    padding: 10px 0;
+}
+.slide img {
+    width: auto;
+    max-width: 100%;
+}
+.removeImage{
+    right: 8px;
+    position: absolute;
+    top: 0;
+}
+
+.border{
+    border: 25px solid #dee2e6 !important;
+    margin: 0 0 15px 0;
+    .cursor-pointer{
+        cursor: pointer;
+    }
+    .fa-paper-plane{
+        padding: 6px 10px;
+        background-color: #dee2e6;
+    }
+    .list{
+        border-top: 16px solid #dee2e6;
+        &.padding{
+            padding: 15px 25px;
+            .word-break{
+                word-break: break-word;
+            }
+        }
+        .list-icon{
+            position: absolute;
+            left: -15px;
+            bottom: -12px;
+            color: #ffff;
+        }
+    }
+    @media (max-width:767px){
+        .iconFont{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+    }
+    @media (max-width:320px){
+        .iconFont{
+          display: block !important;
+        }
+    }
+}
+
+.image-wrap {
+    padding: 10px;
+    border: solid 1px #e0e0e0;
+    display: inline-block;
+}
+
+.graph-image{
+  img{
+    height: 350px;
+  }
+}
+
+.img-space {
+    border: dashed 1px #d3d3d3;
+    border-radius: 8px;
+    background-color: #f2f2f2;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    min-height:84px;
+}
+
+.img-space img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    cursor: pointer;
+}
+
+.fileInputProfileWrap {
+    width: 100%;
+    height: auto;
+    max-width: 120px;
+}
+
+.fileInputProfile {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    opacity: 0;
+    left: -10px;
+}
+.fileInputProfile[disabled] + .img-space{
+    pointer-events: none;
+    cursor: not-allowed!important;
+}
+.removeImg{
+  position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 10px;
+    padding-top: 3px;
+    right: -6px;
+    top: -9px;
+    color: #fff !important;
+}
+
+.tablePanel tbody tr td {
+    word-break: break-all !important;
+}
+
+.show-barcode{
+    display: block !important;
+}
+
+@media (max-width: 568px){
+    .mobileClass{
+        float: left !important;
+        margin-top: 10px;
+    }
+}
+
+.overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.graphDataTable{
+    position: fixed;
+    width: calc(100% - 250px);
+    z-index: 999;
+    @media (max-width: 1300px){
+        right: 20% !important;
+    }
+    @media (max-width: 1024px){
+        right: 12% !important;
+    }
+    .customModal {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-ransform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        width: 100%;
+        video {
+          width: 100%;
+          background-color: #252525;
+      }
+    }
+    .showModal{
+        display: block !important;
+        .crossIcon{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: black;
+            background: #ffff;
+            padding: 5px;
+            border-radius: 15px;
+            z-index: 999;
+            min-width: 25px;
+            text-align: center;
+        }
+        img{
+            max-width: 100%;
+            min-height: 390px;
+            width: 100%;
+            border: 10px solid #ffff;
+            border-radius: 5px;
+            object-fit: contain;
+            max-height: 390px;
+          @media(max-width:1199px){
+            min-height: 250px;
+          }
+        }
+    }
+}
+
+#onlyForPage2,#onlyForPage1{
+    .grayBg {
+        min-height: 190px;
+    }
+}
+
+.attachmentWrapper {
+    form{
+      display: flex;
+      flex-direction: column;
+      float: right;
+      text-align: center;
+      width:100%;
+      fieldset {
+        flex-direction: column;
+        width: 100%;
+      }
+   }
+  
+  }

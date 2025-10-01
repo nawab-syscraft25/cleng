@@ -1,0 +1,176 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pageHeader">
+          <h1>Report Wizard</h1>
+        </div>
+      </div>
+
+      <div class="col-md-10">
+        <app-report-details-form (onReportSave)="saveCompanyReportDetail($event)"
+          (onFilterChange)="filterChanged($event)"></app-report-details-form>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">Report Wizard</div>
+          <div class="card-body">
+            <form action="#">
+              <div class="create-user border-0 mb-0">
+                <div class="row">
+
+                  <div class="col-lg-6 col-md-12 col-md-12">
+                    <div class="table-responsive tablePanel customResponsiveTable">
+                      <table class="table table-bordered table-hover  tableBodyScroll">
+                        <thead>
+                          <tr>
+                            <th>CMP No.</th>
+                            <th>Area</th>
+                            <th>Asset ID</th>
+                            <th>Sap No.</th>
+                            <th>Current Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let report of companyReportDetail1; let i = index;">
+                            <td data-label="CMP No."><a>{{report.companyNo}}</a></td>
+                            <td data-label="Area">{{report.companyArea}}</td>
+                            <td data-label="Asset ID">{{report.assetId}}</td>
+                            <td data-label="Sap No.">{{report.sapNo}}</td>
+                            <td data-label="Current Status">
+                              <div class="d-flex">
+                                <!-- Syscraft remove [] from [disabled] property value -->
+                                <mat-checkbox [checked]="report.checkedValue"
+                                  [disabled]="report.currentStatus.globalCodeName == 'Red' ||
+                                                                report.currentStatus.globalCodeName == 'Yellow' ||
+                                                                report.currentStatus.globalCodeName == 'Green' ? 'false' : 'true'"
+                                  (change)="showOptions($event, report, i, 1)">
+                                </mat-checkbox> &nbsp;
+                                <div class="w-100" style="border:1px solid lightgray">
+                                  <select (change)="readingStatusChange($any($event.target).value, report, i, 1)"
+                                    [ngStyle]="{'background-color': report.currentStatus.globalCodeName }">
+                                    <option *ngFor="let status of readingStatues"
+                                      [selected]="status.globalCodeId == report.currentStatus.globalCodeId"
+                                      [value]="status.globalCodeId" [ngStyle]="{'background-color': status.codeName }">
+                                      {{status.codeName}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="notFound" class="notFoundResponsive">
+                            <td colspan="5" class="text-center p-3">Company Report Detail
+                              Not Found</td>
+                          </tr>
+                          <tr *ngIf="filterchange" class="notFoundResponsive">
+                            <td colspan="5" class="text-center p-3">Filter Changed!
+                              Please click on Create button.
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-12 col-md-12">
+                    <div class="table-responsive tablePanel customResponsiveTable">
+                      <table class="table table-bordered table-hover tableBodyScroll">
+                        <thead>
+                          <tr>
+                            <th>CMP No.</th>
+                            <th>Area</th>
+                            <th>Asset ID</th>
+                            <th>Sap No.</th>
+                            <th>Current Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let report of companyReportDetail2; let i = index;">
+                            <td data-label="CMP No."><a>{{report.companyNo}}</a></td>
+                            <td data-label="Area">{{report.companyArea}}</td>
+                            <td data-label="Asset ID">{{report.assetId}}</td>
+                            <td data-label="Sap No.">{{report.sapNo}}</td>
+                            <td data-label="Current Status">
+                              <div class="d-flex">
+                                <!-- Syscraft remove [] from [disabled] property value -->
+                                <mat-checkbox [checked]="report.checkedValue"
+                                  [disabled]="report.currentStatus.globalCodeName == 'Red' ||
+                                                                    report.currentStatus.globalCodeName == 'Yellow' ||
+                                                                    report.currentStatus.globalCodeName == 'Green' ? 'false' : 'true'"
+                                  (change)="showOptions($event, report, i, 2)">
+                                </mat-checkbox> &nbsp;
+                                <div class="w-100" style="border:1px solid lightgray">
+                                  <select (change)="readingStatusChange($any($event.target).value, report, i, 2)"
+                                    [ngStyle]="{'background-color': report.currentStatus.globalCodeName }">
+                                    <option *ngFor="let status of readingStatues"
+                                      [selected]="status.globalCodeId == report.currentStatus.globalCodeId"
+                                      [value]="status.globalCodeId" [ngStyle]="{'background-color': status.codeName }">
+                                      {{status.codeName}}</option>
+                                  </select>
+                                </div>
+                              </div>
+
+
+                            </td>
+                          </tr>
+                          <tr *ngIf="notFound" class="notFoundResponsive">
+                            <td colspan="5" class="text-center p-3">Company Report Detail
+                              Not Found</td>
+                          </tr>
+                          <tr *ngIf="filterchange" class="notFoundResponsive">
+                            <td colspan="5" class="text-center p-3">Filter Changed!
+                              Please click on Create button.
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!--  Form section  -->
+
+      <div class="col-sm-12" *ngIf="hideIssuesForm">
+
+        <mat-accordion id="matAccordion" multi class="mat-table" is-open="true">
+
+          <!-- Syscraft comment
+          <mat-accordion id="matAccordion" displayMode="" multi class="mat-table" is-open="true"> -->
+
+          <mat-expansion-panel [expanded]="issueDetail" (opened)="issuePanelOpened(i)"
+            *ngFor="let issueDetail of companyReportIssues; let i = index;">
+            <mat-expansion-panel-header class="mat-row">
+              <span class="mat-cell">
+                <b> CMP NO : </b> {{issueDetail?.companyDetail?.companyNo}} &nbsp; <b> Asset Id : </b>
+                {{issueDetail?.companyDetail?.assetId}} &nbsp; <b>Area : </b>
+                {{issueDetail?.companyDetail?.companyArea}} &nbsp; <b>Status : </b> <span
+                  class="p-5 colorStatusResponsive"
+                  [ngStyle]="{'background-color': issueDetail?.companyDetail?.stausColor }">&nbsp;</span>
+              </span>
+
+            </mat-expansion-panel-header>
+            <mat-accordion>
+              <app-report-issue-form [submitted]="submitted" [readingIssue]="issueDetail"
+                (formChange)="issueFormChanged($event, i)"></app-report-issue-form>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="right-button arroundSpace" style="padding: 15px;">
+        <button (click)="saveAllIssues(false)" class="btn btn-black yellowBg1 commonClass">Save All</button>
+        <button (click)="saveAllIssues(true)" class="btn btn-black greenBg1 commonClass">Publish Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white"> Please Wait. </p>
+</ngx-spinner>

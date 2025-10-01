@@ -1,0 +1,94 @@
+<section class="mainBody">
+  <div class="pageWrapper">
+    <div class="pageBody">
+      <div class="authPage">
+        <div class="authInner">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 pd-0">
+                <div class="authDesc">
+                  <div class="authInnerDiv">
+                    <div class="authLogo">
+                      <img src="assets/images/logo.png" class="w-50" alt="image" />
+                    </div>
+                    <img src="assets/images/logo-text.png" class="w-50" alt="image">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8 col-md-8 pd-0">
+                <div class="authForm">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <h3 class="text-center">Welcome to C.A.M - CLENG Asset Monitoring</h3>
+                    </div>
+                  </div>
+                  <form class="was-validated1 responsiveForm" #form="ngForm" name="loginForm"
+                    (ngSubmit)="form.valid && submit(form)" novalidate>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input matInput type="email" #email="ngModel" [(ngModel)]="loginData.email"
+                              class="form-control" name="email" class="form-control" placeholder="email" required />
+                            <mat-error *ngIf="email.hasError('required')">
+                              Email is <strong>required</strong>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" #password="ngModel" [(ngModel)]="loginData.password"
+                              name="password" minlength="8" class="form-control" class="form-control"
+                              placeholder="password" required />
+                            <mat-error *ngIf="password.hasError('required')">
+                              Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="password.hasError('minlength')">
+                              Password must be atleast 8 characters long
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-black btnCss mt-20" id="btnLogin">Login</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <hr>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="commonHead">
+                        <p><b><a [routerLink]="['/forgot-password']">Forgot Password ?</a></b></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center pt-5">
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                  If you are a new customer and would like information on how our unique CAM reliability plateform can
+                  improve your plant health
+                  please visit <a target="_blank" href="https://www.cleng.co.uk/">www.CLENG.co.uk</a> or contact us on
+                  <a href="mailto:info@CLENG.co.uk">info&#64;CLENG.co.uk </a> or call <a href="tel:+44 (0) 151 345 6784"
+                    style="color: inherit !important;">+44 (0) 151 345 6784</a>
+                    <!-- info@CLENG.co.uk -->
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,239 @@
+hr{
+    margin-top: 2rem !important;
+    margin-bottom: 2rem!important;
+}
+.fa:hover {
+    color: #ed7602;
+}
+.print-icon{
+    display: block;
+}
+.show{
+    .print-icon{
+        display: none;
+    }
+}
+.logo-text{
+    padding-top: 35px !important;
+    margin: 0 0 20px 0;
+    h3{
+      margin:0 0 4px 0;
+    }
+}
+.logo-desc{
+    margin: 0 0 45px 0;
+    p{
+     margin: 0 0 10px 0;   
+    }
+}
+.letter-spacing{
+    letter-spacing: 2px;
+}
+.pageHeader {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    float: right;
+}
+.graphImage{
+    height: 300px;
+    .graphImageNotShow{
+        position: relative;
+        text-align: center;
+        top: 150px;
+    }
+}
+.graphNotShow {
+    text-align: center;
+    background-color: #eee;
+    padding: 10px 0;
+    margin: 0 0 16px 0;
+    p{
+        margin: 0px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+}
+.mainPad {
+    padding: 0 30px;
+    @media screen and (max-width:767px){
+        padding: 0 5px;
+    }
+}
+.printFunCol{
+  img{
+     max-width:100%;
+  }
+}
+#dtSurveyOver > tbody > tr >td:first-child {
+    width: 10%;
+}
+
+.ShowHideLogo
+{
+    display: none;
+}
+
+#dtSurveyOver>tbody>tr>td:first-child {
+    width: 25% !important;
+}
+
+#historyTable>tbody>tr>td:nth-child(2) {
+    width: 10%;
+}
+#historyTable>thead>tr>th:first-child {
+    display: none;
+}
+#historyTable>tbody>tr>td:first-child {
+    display: none;
+}
+
+.historyTable{
+    thead{
+      tr{
+        th{
+          &:nth-child(5),&:nth-child(6),&:nth-child(7),&:nth-child(8),&:nth-child(9),&:nth-child(10),&:nth-child(11){
+            width: 70px;
+          }
+        }
+      }
+    }
+  }
+.Status-icon{
+    position: relative;
+    top: 30px;
+    .topIcons{
+        width: 150px;
+        float: right;
+        margin: 0 0 10px 0;
+        .fa{
+            justify-content: center;
+            display: flex;
+        }
+    }
+}
+
+.graphDataTable{
+    position: fixed;
+    width: calc(100% - 250px);
+    z-index: 999;
+    @media (max-width: 1300px){
+        right: 20% !important;
+    }
+    @media (max-width: 1024px){
+        right: 12% !important;
+    }
+    .customModal {
+        video {
+          width: 100%;
+          background-color: #252525;
+      }
+    }
+    .showModal{
+      display: block !important;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      top: 0;
+      z-index: 9;
+      left: 0;
+      padding-left: 250px;
+      @media (max-width: 1024px){
+        padding: 0 15px;
+      }
+      .modal-content {
+        max-width: 1000px;
+        margin: 50px auto;
+        .crossIcon{
+          position: absolute;
+          right: 15px;
+          top: 15px;
+          color: black;
+          background: #ffff;
+          padding: 5px;
+          border-radius: 15px;
+          z-index: 999;
+          min-width: 25px;
+          text-align: center;
+        }
+        img{
+            max-width: 100%;
+            min-height: 390px;
+            width: 100%;
+            border: 10px solid #ffff;
+            border-radius: 5px;
+            object-fit: contain;
+            max-height: 390px;
+          @media(max-width:1199px){
+            min-height: 250px;
+          }
+        }
+      }
+  
+    }
+  }
+
+@media (max-width:425px){
+    .float-right{
+        float: left !important;
+        margin-bottom: 10px;
+    }
+    .mobile-res{
+        .topIcons{
+            display: contents;
+        }
+        display: block !important;
+        margin-top: 10px !important;
+    }
+    .selectOptions{
+        margin-top: 10px !important;
+    }
+}
+@media (max-width:480px){
+    #onlyForPage2 video{
+      width: 100%;
+    }
+  }
+  .mainContent {
+    
+    .card {
+      min-height: 332px;
+      @media(max-width:767px){
+  
+      }
+      &.historical-card{
+        min-height: 0px;
+      }
+    }
+  }
+
+.systemAssetImages{
+  display: flex;
+  align-items: center;
+  .assetImages {
+    display: inline-flex;
+    img.imgHeight {
+      max-width: 192px !important;
+      height: auto;
+      min-height: 150px;
+      padding: 5px;
+    }
+  }
+    
+}.overlay{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+.recommended-modal.customModal .modal-content
+{
+  background-color: #fff;
+}

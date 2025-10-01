@@ -1,0 +1,106 @@
+.btn-secondary:focus{
+    color: #fff;
+    background-color: #EF7627 !important;
+    border-color: #EF7627 !important;
+    z-index: 0;
+    box-shadow: none;
+}
+.pieBtnHighlight{
+    background-color: #EF7627 !important;
+    border-color: #EF7627 !important;
+}
+.barBtnHighlight{
+    background-color: #EF7627 !important;
+    border-color: #EF7627 !important;
+}
+
+.text-size-2{
+    font-size: 15px;
+}
+
+.lastMonthsdata{
+    .btn-secondary:focus{
+        color: #fff;
+        background-color: #10bc98 !important;
+        border-color:transparent !important;
+        z-index: 0;
+        box-shadow: none;
+    }
+    .yearMonthbtn{
+        background-color: #10bc98 !important;
+        border-color:transparent !important; 
+        &.monthBtnHighlight{
+            background-color: #34495e !important;
+        }
+        &:hover{
+            background-color: #34495e !important;
+            border-color:transparent !important; 
+        }
+    }
+    .yearMonthbtn {
+        &.yearBtnHighlight{
+            background-color: #34495e !important;
+        }
+        
+    }
+}
+.faultName{
+    text-transform: capitalize;
+}
+.tablePanel {
+    thead {
+        tr {
+            th {
+                color: #000;
+                font-size: 13px;
+                padding: 12px 8px;
+                vertical-align: top;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.printDoc {
+    padding: 5px 15px;
+    border: none;
+    margin-left: 2px;
+    background-color: #10bc98;
+    display: inline-block !important;
+
+    &:hover{
+        background-color: #34495e ;
+    }
+}
+
+.chartsDiv {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.alighRight {
+    text-align: right;
+}
+@media (max-width: 425px){
+    .float-right {
+        float: left !important;
+        margin-bottom: 10px;
+    }
+}
+
+@media(max-width:767px){
+	.lastMonthsdata {
+		float: left;
+	}
+	.alighRight {
+		text-align: left !important;
+		margin: 10px 0 20px;
+	}
+}
+// @media (max-width: 320px){
+//     #pieChart{
+//         position: relative;
+//         left: -35px;
+//     }
+// }

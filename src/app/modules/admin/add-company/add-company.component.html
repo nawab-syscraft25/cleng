@@ -1,0 +1,100 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pageHeader d-inline-block mb-2">
+          <h1 class="m-0">Add Company</h1>
+        </div>
+        <div class="addUser float-right"><a [routerLink]="['/admin/company']" class="text-dark"><i
+              class="fa fa-reply-all fa-2x"></i></a></div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card">
+          <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+          <div class="card-header">Add Company</div>
+          <div class="card-body">
+            <form #addCompanyForm="ngForm" (ngSubmit)="addCompanyForm.valid && addCompany(addCompanyForm)" novalidate>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="create-user border-0 mb-0">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-2 col-sm-4 col-12">
+                              <label class="mt-2">Customer Name:</label>
+                            </div>
+                            <div class="col-md-10 col-sm-8 col-12">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Customer Name</mat-label>
+                                <input matInput class="form-control" type="text" placeholder="Enter Customer Name"
+                                  name="companyName" #companyName="ngModel" [(ngModel)]="addCompanyData.companyName"
+                                  required />
+                                <mat-error *ngIf="companyName.hasError('required')">
+                                  Customer name is <strong>required</strong>
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="table-responsive tablePanel">
+
+
+
+                    <table class="table w-100 table-bordered table-hover table-striped">
+                      <tr>
+                        <th class="orange">CMP No.</th>
+                        <th class="orange">Area</th>
+                        <th class="orange">Asset Id</th>
+                        <th class="orange">SAP No. if used</th>
+                        <th class="orange">Upload Image</th>
+                        <th class="orange text-center">Action</th>
+                      </tr>
+
+                      <tr *ngFor="let field of filterItemsOfType(); let i = index; let last = last;">
+                        <td><input class="m-auto d-flex" #companyNo="ngModel" [(ngModel)]="field.companyNo"
+                            name="companyNo_{{i}}" type="text" style="width:150px"></td>
+                        <td><input class="m-auto d-flex" #companyArea="ngModel" [(ngModel)]="field.companyArea"
+                            name="companyArea_{{i}}" type="text" style="width:150px"></td>
+                        <td><input class="m-auto d-flex" #assetId="ngModel" [(ngModel)]="field.assetId"
+                            name="assetId_{{i}}" type="text" style="width:150px"></td>
+                        <td><input class="m-auto d-flex" #sapNo="ngModel" [(ngModel)]="field.sapNo" name="sapNo_{{i}}"
+                            type="text" style="width:150px"></td>
+                        <td class="uploadImage">
+                          <span id="myButton" class="cursor-pointer">Upload Image &nbsp; <i
+                              class="fa fa-upload text-danger pt-1"></i></span>
+                          <input class="pdfInputFile" type="file" name="image_{{i}}" (change)="uploadPdf($event, i)">
+
+                        </td>
+                        <td class="text-center">
+                          <div class="cursor-pointer" (click)="removeField(field.rownum)">
+                            Remove</div>
+                          <span *ngIf="last" class="cursor-pointer" (click)="addMoreField()">Add More </span>&nbsp;
+                          <a *ngIf="messageIcon" (click)="messageClickIcon(field)"><i
+                              class="fa fa-comments fa-lg"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="d-flex buttons mt-3">
+                    <button type="submit" class="btn btn-dark mr-2 ml-2">Save</button>
+                    <a class="btn btn-dark text-white mr-2 ml-2" (click)="windowScroll()">Cancel</a>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-messages [messageData]="messageId" *ngIf="loadComponent"></app-messages>

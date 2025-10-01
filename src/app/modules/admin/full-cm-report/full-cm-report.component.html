@@ -1,0 +1,357 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div [class.overlay]="overlay"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pageHeader d-inline-block mb-0">
+          <h1>Full CM Reports</h1>
+        </div>
+        <div class="addUser float-right"><a [routerLink]="['/admin/dashboard']" class="text-dark"><i
+              class="fa fa-reply-all fa-2x"></i></a></div>
+      </div>
+      <div class="col-md-12">
+        <div class="row" id="printDiv">
+
+          <div class="col-md-12 pagebreak">
+            <div class="card">
+              <div class="card-header">Full CM Report</div>
+              <div class="card-body">
+                <form action="#">
+                  <div class="create-user border-0 mb-0">
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <div class="table-responsive tablePanel">
+                          <table class="table table-bordered table-hover tableBodyScroll">
+                            <thead>
+                              <tr>
+                                <th>Area </th>
+                                <th>Asset ID</th>
+                                <th>Date of reading</th>
+                                <th>Value</th>
+                                <th>Vibration Type</th>
+                                <th>Units mms/s, G </th>
+                                <th>Brg </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngIf="notEmpty">
+                                <td data-label="Area">{{fullCmReportList.companyArea}}
+                                </td>
+                                <td data-label="Asset ID">{{fullCmReportList.assetId}}
+                                </td>
+                                <td data-label="Date of reading">
+                                  {{fullCmReportList.dateOfReading | date:
+                                  'dd-MM-yyyy'}}</td>
+                                <td data-label="Value">{{fullCmReportList.value}}</td>
+                                <td data-label="Vibration Type">
+                                  {{fullCmReportList.vibrationTypeName}}</td>
+                                <td data-label="Units mms/s">
+                                  {{fullCmReportList.unitsName}}</td>
+                                <td data-label="Brg">{{fullCmReportList.brgIdName}}</td>
+                              </tr>
+                              <tr *ngIf="emptyData">
+                                <td data-label="Area">{{companyAreaFromDashboard}}</td>
+                                <td data-label="Asset ID">{{assetIdFromDashboard}}</td>
+                                <td data-label="Date of reading"></td>
+                                <td data-label="Value"></td>
+                                <td data-label="Vibration Type"></td>
+                                <td data-label="Units mms/s"></td>
+                                <td data-label="Brg"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <h2 class="text-center mb-0" *ngIf="notEmpty">
+                          {{fullCmReportList.vibrationTypeName}}</h2>
+
+
+                        <div class="graph-image" *ngIf="notEmpty">
+                          <div *ngIf="fullCmReportList.graphDataImage">
+                            <img class="w-100" [src]="api+fullCmReportList.graphDataImage">
+                          </div>
+                        </div>
+                        <div class="p-4 text-center" *ngIf="emptyGraphImage">
+                          No graph image Found
+                        </div>
+
+                        <div class="detailText">
+                          <h3>Primary Issue </h3>
+                          <p *ngIf="notEmpty">{{fullCmReportList.primaryIssue}}</p>
+                        </div>
+
+                        <div class="detailText">
+                          <h3>Secondary Issue </h3>
+                          <p *ngIf="notEmpty">{{fullCmReportList.secondaryIssue}}</p>
+                        </div>
+
+                        <div class="detailText">
+                          <h3>Recommendations </h3>
+                          <p *ngIf="notEmpty">{{fullCmReportList.longDescription}}</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+          <!--  Asset Image & video for Printing -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12 " id="onlyForPrinting1" style="display: none;">
+                <div class="card">
+                  <div class="card-header">Asset ( Image )</div>
+                  <div class="card-body grayBg">
+                    <div class="row clearfix" *ngIf="notEmpty">
+
+                      <div *ngIf="sliderImagePath">
+                        <div class="col-md-4 slide" *ngFor="let slide of sliderImagePath; let i = index">
+                          <div class="thumbImageNew" *ngIf="slide.imageUrl">
+                            <img [src]="api + slide.imageUrl" title="image">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" id="onlyForPrinting2" style="display: none;">
+                <div class="card">
+                  <div class="card-header">Asset ( Videos )</div>
+                  <div class="card-body grayBg">
+                    <div class="row clearfix" *ngIf="notEmpty">
+                      <div *ngIf="sliderVideoPath">
+                        <div class="col-md-12 slide" *ngFor="let video of sliderVideoPath">
+                          <div class="thumbVideo">
+                            <video width="320" height="240" controls>
+                              <source [src]="api + video.imageUrl" type="video/mp4">
+                            </video>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6" id="onlyForPage1">
+            <div class="card">
+              <div class="card-header">Asset ( Image )</div>
+              <div class="card-body grayBg">
+                <div *ngIf="notEmpty">
+                  <div *ngIf="sliderImagePath">
+                    <owl-carousel-o [options]="customOptions">
+                      <ng-template carouselSlide *ngFor="let slide of sliderImagePath; let i = index">
+                        <div class="slide" *ngIf="slide.imageUrl">
+                          <img [src]="api + slide.imageUrl" title="image" class="imgHeight"
+                            on-mouseover="getImgUrl(api + slide.imageUrl, 1)">
+                        </div>
+                      </ng-template>
+                    </owl-carousel-o>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" id="onlyForPage2">
+            <div class="card">
+              <div class="card-header">Asset ( Videos )</div>
+              <div class="card-body grayBg">
+                <div *ngIf="notEmpty">
+                  <div *ngIf="sliderVideoPath">
+                    <owl-carousel-o [options]="customOptions">
+
+                      <ng-template carouselSlide *ngFor="let video of sliderVideoPath">
+                        <div class="slide">
+                          <video width="320" height="240" controls on-mouseover="getImgUrl(api + video.imageUrl, 2)">
+                            <source [src]="api + video.imageUrl" type="video/mp4">
+                          </video>
+                        </div>
+                      </ng-template>
+
+                    </owl-carousel-o>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  Historical Asset Alarms  -->
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">Historical Asset Alarms</div>
+              <div class="table-responsive tablePanel">
+                <table class="table table-bordered table-hover tableBodyScroll haaTable">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let data of historicalAlarms">{{data.MonthYearName}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="cursor-pointer" *ngFor="let data of historicalAlarms"
+                        (click)="reportOfColor(data.CompanyReportDetailReadingId)"
+                        [ngStyle]="{'background-color': data.ColorValue}"></td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            Asset Message Board
+          </div>
+          <div class="card-body">
+            <div class="border">
+              <div class="pr-2 pl-2 pt-3">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex" style="justify-content: space-between;">
+                      <strong class="d-inline-block">New Message for
+                        {{assetIdFromDashboard}}</strong> <!--CMP 10A Tribune-->
+                      <i (click)="addMessage()"
+                        class="cursor-pointer d-inline-block fa fa-paper-plane fa-lg float-right msg-icon"></i>
+                    </div>
+                    <hr class="float-left w-75">
+                  </div>
+                  <div class="col-sm-8 col-12">
+                    <textarea type="text" placeholder="Enter your massage here..."
+                      class="form-control mHeight border-0 bg-white" [(ngModel)]="msgInputTxt"></textarea>
+                  </div>
+                  <div class="col-sm-4 col-12 text-center attachmentWrapper">
+
+                    <form>
+                      <div class="form-group mb-0" style="display: -webkit-inline-box;">
+                        <fieldset class="form-group mb-0 d-flex">
+
+                          <label>Click or drag an attachment here</label>
+                          <div class="custom-file fileInputProfileWrap m-auto">
+
+                            <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile">
+                            <div class="img-space">
+
+
+                              <img src="assets/img/dnd/ic-file.svg" class="img-responsive">
+
+                            </div>
+
+                            <div *ngIf="imageType">
+                              File Exist
+                            </div>
+
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div class="pb-3 mt-2">Size limit of 50MB</div>
+                    </form>
+
+                  </div>
+                  <div class="col-12 p-0" *ngFor="let list of messagesList; let i = index">
+                    <div class="list padding row">
+                      <div class="col-sm-12 col-md-10 word-break">
+                        <div class="mb-3"><strong class="text-primary">{{list.messageFrom}}</strong> on
+                          {{list.messageDate |date: 'MM-dd-yyyy'}}</div>
+                        <div>{{list.messageDescription}}</div>
+                        <i class="fa fa-caret-left fa-3x list-icon"></i>
+                      </div>
+                      <div class="col-sm-12 col-md-2">
+                        <div class="iconFont text-center text-primary">
+                          <div class="cursor-pointer pb-2" (click)="editMessage(list)">
+                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i> Message
+                          </div>
+                          <div class="cursor-pointer pb-2" (click)="deleteMessage(list.messageId)">
+                            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> Message
+                          </div>
+                          <div class="cursor-pointer" *ngIf="list.imagesResponse != null">
+                            <a [href]="api+list.imagesResponse.imageUrl" class="cursor-pointer" target="_blank">
+                              <div *ngIf="list.imagesResponse.imageSourceName == 'Images' ">
+                                <img [src]="api+list.imagesResponse.imageUrl" width="50px">
+                              </div>
+                              <div
+                                *ngIf="list.imagesResponse.imageSourceName == 'Videos' && list.imagesResponse.imageUrl.split('.')[1] != 'pdf' ">
+                                <video width="50" height="50" controls>
+                                  <source [src]="api+list.imagesResponse.imageUrl" type="video/mp4">
+                                </video>
+                              </div>
+                              <div class="pdfImage" *ngIf="list.imagesResponse.imageUrl.split('.')[1] == 'pdf'">
+                                <img src="assets/images/pdf-icon.png" style="width: 35px; margin-top:-3px;">
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 p-0" *ngIf="notFound">
+                    <div class="list padding row d-flex" style="justify-content: center;">
+                      No Data Found
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="row" *ngIf="accountType == 'Admin' && pdfReportUrl">
+              <a class="cursor-pointer text-center" (click)="QRcodebutton()"><i class="fa-lg fa fa-qrcode"></i>
+                <span class="d-block">Create QR</span>
+              </a>
+
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="right-button float-right mobileClass">
+              <button (click)="print()" id="inputprintbutton" class="btn btn-black">Print Report</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Image PopOut -->
+      <div class="graphDataTable">
+        <div class="customModal">
+          <div id="alarmReport" class="custom-modal d-none" [class.showModal]="showModal" role="dialog">
+            <div class="modal-content">
+              <div class="fa fa-times crossIcon" (click)="hideModal()"></div>
+              <div *ngIf="indexNum==1">
+                <img [src]="imgUrl" alt="" *ngIf="imgUrl">
+              </div>
+              <div *ngIf="indexNum==2">
+                <video width="500" height="500" controls>
+                  <source [src]="imgUrl" type="video/mp4">
+                </video>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white"> Please Wait. </p>
+</ngx-spinner>

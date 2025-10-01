@@ -1,0 +1,614 @@
+<div class="mainContent" [class.show]="printClass">
+  <div class="container-fluid">
+    <div [class.overlay]="overlay"></div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="pageHeader mb-3">
+
+          <div class="addUser float-right"><a [routerLink]="['/admin/full-cm-report-list']" class="text-dark"
+              title="Back"><i class="fa fa-reply-all fa-2x"></i></a></div>
+          <div class="btn float-right print-icon" id="inputprintbutton" title="Print Report"><a (click)="printFun()"
+              class="text-dark"><i class="fa fa-print fa-2x"></i></a></div>
+        </div>
+      </div>
+    </div>
+    <div id="printDiv" class="row">
+
+      <div class="col-md-12">
+        <div class="mainPad">
+          <div class="pagebreak">
+            <div id="displayOnPrint">
+              <div class="text-center logo">
+                <img [src]="api+ 'assets/images/logo.png'">
+              </div>
+              <div class="text-center logo">
+                <img [src]="api+'assets/images/logo-text-3.png'">
+              </div>
+            </div>
+            <div class="logo-text">
+              <h2><strong><u>CONDITION MONITORING PROGRAM REPORT</u></strong></h2>
+              <h4><strong>{{reportedDateValue | date: "dd/MM/yyyy"}}</strong></h4>
+              <h4><strong>{{companyName}}</strong></h4>
+            </div>
+            <div class="logo-desc">
+              <p> Report reference: {{reportedDateValue | date: "dd MMMM yyyy"}} </p>
+              <p> Data collected by: {{collectedBy}}</p>
+              <p> Report written by: {{engineerName}}
+              </p>
+
+            </div>
+          </div>
+          <div class="pagebreak">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div id="displayOnPrint" class="ShowHideLogo">
+                  <div class="text-center logo">
+                    <img [src]="api+ 'assets/images/logo.png'">
+                  </div>
+                  <div class="text-center logo">
+                    <img [src]="api+'assets/images/logo-text-3.png'">
+                  </div>
+                </div>
+                <div class="card center-top-graph">
+                  <div class="card-header">PLANT ASSET HEALTH HISTORY</div>
+                  <div class="card-body">
+
+
+                    <div id="dashbordGraphOnPage">
+                      <div class="row plantAssetGraph" *ngIf="dashboardGraphData.length > 0">
+                        <div class="col-md-10 col-sm-9">
+                          <div id="chart" style="text-align:center;width: 100%;">
+                            <apx-chart [series]="dashboardGraphData!" [chart]="chartOptions.chart!"
+                              [xaxis]="dashboardGraphCategories!" [stroke]="chartOptions.stroke!"
+                              [tooltip]="chartOptions.tooltip!" [dataLabels]="chartOptions.dataLabels!"
+                              [legend]="chartOptions.legend!" [markers]="chartOptions.markers!" [grid]="chartOptions.grid!"
+                              [yaxis]="chartOptions.yaxis!" [title]="chartOptions.title!" [colors]="chartOptions.colors!">
+                            </apx-chart>
+                          </div>
+                        </div>
+                        <div class="col-md-2 col-sm-3">
+                          <div class="Status-icon mobile-res">
+                            <div class="topIcons text-center">
+                              <img class="d-block m-auto" [src]="api+'assets/images/bell.png'">
+                              <div class="card-body1 p-0">
+                                <p><strong>Warning</strong> {{percOfWarning}}% <br> {{lastWarning}} Machines</p>
+                              </div>
+                            </div>
+                            <div class="topIcons text-center">
+                              <img class="d-block m-auto" [src]="api+'assets/images/caution.png'">
+
+                              <div class="card-body1 p-0">
+                                <p><strong>Caution</strong> {{percOfCaution}}% <br> {{lastCaution}} Machines</p>
+                              </div>
+                            </div>
+                            <div class="topIcons text-center">
+                              <img class="d-block m-auto" [src]="api+'assets/images/acceptable.png'">
+                              <div class="card-body1 p-0">
+                                <p><strong>Acceptable</strong> {{percOfAcceptable}}% <br> {{lastAcceptable}} Machines
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="dashboardGraphData.length == 0" class="text-center">
+                        Not Found Data
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div class="pagebreak">
+            <div id="displayOnPrint" class="ShowHideLogo">
+              <div class="text-center logo">
+                <img [src]="api+ 'assets/images/logo.png'">
+              </div>
+              <div class="text-center logo">
+                <img [src]="api+'assets/images/logo-text-3.png'">
+              </div>
+            </div>
+            <h4 class="text-center mt-4"><strong><u> TECHNICAL INFORMATION</u></strong></h4>
+            <h4><strong><u>SUMMARY OF SURVEY ACTIVITIES</u></strong></h4>
+            <p>
+              To carry out Condition Monitoring Survey using Vibration Analysis at Kelloggs Rice, . Data
+              collection was carried out on
+              all available plant as per contract. Where equipment was found to be out of service and
+              independent operation was
+              unavailable this has been noted. Where possible rotation speeds (rpm) or relevant line or
+              production speeds have been
+              recording for trending purposes.
+            </p>
+            <h4><strong><u>MEASUREMENTS POSITIONS</u></strong></h4>
+            <p>
+              On all equipment the velocity measurements are taken in the vertical, horizontal and axial
+              positions. Acceleration
+              readings are taken in two radial positions, typically vertical and horizontal. On a machine
+              train readings will usually be
+              taken in the following sequence; Motor Non Drive End Bearing, Motor Drive End Bearing, any
+              Support Bearings, Driven
+              Unit Drive End Bearing and Driven Non Drive end Bearing. For vertically mounted units a
+              convention will be set on the
+              first survey and marked for future continuity.
+            </p>
+            <h4><strong><u>VIBRATION MAGNITUDE UNITS</u></strong></h4>
+            <div class="row printFunRow">
+              <div class="col-md-6">
+                <div class="printFunCol">
+                  <img [src]="api+'assets/images/pdf-2.jpeg'">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="printFunCol">
+                  <ul>
+                    <li>
+                      <p><strong>Vibration Velocity in mm/s RMS </strong>(Root Mean Square
+                        0.7071 of the Peak value).</p>
+                    </li>
+                    <li>
+                      <p><strong>Vibration Acceleration in 'g' peak </strong>(Acceleration of
+                        gravity 'g', is the acceleration produced by the force of
+                        gravity at the earths surface. By international
+                        agreement the value of 9.81m/s squared has been
+                        chosen as the standard).</p>
+                    </li>
+                    <li>
+                      <p><strong>Vibration Displacement in microns peakto-peak </strong></p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pagebreak">
+            <div id="displayOnPrint" class="ShowHideLogo">
+              <div class="text-center logo">
+                <img [src]="api+ 'assets/images/logo.png'">
+              </div>
+              <div class="text-center logo">
+                <img [src]="api+'assets/images/logo-text-3.png'">
+              </div>
+            </div>
+            <h4 class="pt-5"><strong><u>ALARM LEVELS</u></strong></h4>
+            <p>Alarm levels are based on the standard ISO 10816-3 shown below, ( relevant to normal steady
+              state operation at the
+              machine rated speed ) unless otherwise stated by the manufacturer and agreed when setting up
+              the survey. Trending of
+              the unit over time may allow the alarm levels to be reset at levels more appropriate to that
+              specific unit or machine
+              system.</p>
+            <div class="p-5 text-center">
+              <img [src]="api+'assets/images/pdf-1.jpeg'" class="img-fluid">
+            </div>
+            <div class="table-responsive tablePanel">
+              <table id="dtSurveyOver" class="table table-bordered table-hover tableBodyScroll">
+                <tbody>
+                  <tr>
+                    <td class="text-center letter-spacing print-width">
+                      <strong>WARNING</strong><br>
+                      ZONE D
+                    </td>
+                    <td>
+                      <p>Vibration values in this zone are normally considered to
+                        be of sufficient severity to cause damage to the
+                        machine</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center letter-spacing print-width">
+                      <strong>CAUTION</strong><br>
+                      ZONE C
+                    </td>
+                    <td>
+                      <p>Machines with vibration in this zone are normally
+                        considered unsatisfactory for long term operation.
+                        Generally they may be operated for a limited period in
+                        this condition until remedial action can be taken</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center letter-spacing print-width">
+                      <strong>ACCEPTABLE</strong><br>
+                      ZONE B
+                    </td>
+                    <td>
+                      <p>Machines in this zone are normally considered
+                        acceptable for long term unrestricted operation</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center letter-spacing print-width">
+                      <strong>ACCEPTABLE</strong><br>
+                      ZONE A
+                    </td>
+                    <td>
+                      <p>New Machine Systems.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="pagebreak">
+            <div id="displayOnPrint" class="ShowHideLogo">
+              <div class="text-center logo">
+                <img [src]="api+ 'assets/images/logo.png'">
+              </div>
+              <div class="text-center logo">
+                <img [src]="api+'assets/images/logo-text-3.png'">
+              </div>
+            </div>
+            <h4><strong><u>SUMMARY OF MACHINERY CONDITION</u></strong></h4>
+            <p><strong>For ease of use this report will combine Zones A & B as ACCEPTABLE with a GREEN
+                traffic light condition,
+                Zone C as CAUTION with an amber traffic light condition and Zone D as WARNING with a RED
+                traffic light
+                condition.</strong></p>
+            <div class="table-responsive tablePanel pb-3">
+              <table id="dtSurveyOver" class="table table-bordered table-hover tableBodyScroll">
+                <tbody>
+                  <tr>
+                    <td class="text-center letter-spacing print-width" style="background-color: red;" width="500">
+                      <strong>WARNING</strong></td>
+                    <td>
+                      <p>Vibration levels for this machine have breached the
+                        HIGH ALARM level. This could potentially be of sufficient
+                        severity to cause damage to the machine. Immediate
+                        action is recommended or reduced use until action is
+                        possible.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center letter-spacing print-width" style="background-color: yellow;" width="500">
+                      <strong>CAUTION</strong></td>
+                    <td>
+                      <p>Vibration levels for this machine have breached the
+                        LOW ALARM level. Machines with vibration in this zone
+                        are normally considered unsatisfactory for long term
+                        operation. Generally they may be operated for a limited
+                        period in this condition until remedial action can be
+                        taken. Further Analysis may be required to give an
+                        accurate diagnosis, use of alternative Condition
+                        Monitoring technologies may</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center letter-spacing print-width" style="background-color: green;" width="500">
+                      <strong>ACCEPTABLE</strong>
+                    </td>
+                    <td>
+                      <p>Machines in this zone are normally considered
+                        acceptable for long term unrestricted operation.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagebreak w-100">
+        <div id="displayOnPrint" class="ShowHideLogo">
+          <div class="text-center logo">
+            <img [src]="api+ 'assets/images/logo.png'">
+          </div>
+          <div class="text-center logo">
+            <img [src]="api+'assets/images/logo-text-3.png'">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mainPad">
+            <h4 class="text-center mt-4"><strong><u> MACHINES SURVEYED</u></strong></h4>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mainPad">
+            <div class="card">
+              <div class="card-header">AREA OF PLANT</div>
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive tablePanel">
+                      <table id="dtSurveyOver" class="table table-bordered table-hover tableBodyScroll">
+                        <thead>
+                          <tr>
+                            <th>SURVEY ID</th>
+                            <th>MACHINE NAME</th>
+                            <th>MAIN FAULT</th>
+                            <th>ALARM STATUS</th>
+                          </tr>
+                        </thead>
+
+                        <tbody *ngIf="foundData">
+                          <tr *ngFor="let list of ReportDetails">
+                            <td>{{list.CompanyNo}}</td>
+                            <td>{{list.CompanyNo}} {{list.CompanyArea}} {{list.AssetId}}
+                            </td>
+                            <td>{{list.MainFault}}</td>
+                            <td [ngStyle]="{'background-color': list.Color}">
+
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody *ngIf="notFoundData">
+                          <tr class="text-center">
+                            <td colspan="4" class="p-4">Not Found Data</td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div id="machineAlarmPrint" style="display: none" class="col-md-12 pagebreak">
+        <div id="displayOnPrint" class="ShowHideLogo">
+          <div class="text-center logo">
+            <img [src]="api+ 'assets/images/logo.png'">
+          </div>
+          <div class="text-center logo">
+            <img [src]="api+'assets/images/logo-text-3.png'">
+          </div>
+        </div>
+        <div class="heading-center">
+          <h3><u>MACHINES IN ALARM</u></h3>
+        </div>
+      </div>
+      <div class="col-md-12 ">
+        <div class="mainPad pagebreak1">
+          <div class="card">
+            <div id="machineAlarmPage" class="card-header">MACHINES IN ALARM</div>
+            <div *ngIf="ReportDetails==null" class="machineAlarmPageData text-center p-3">No Data Found</div>
+            <div *ngFor="let value of ReportDetails;let i=index">
+              <div id="displayOnPrint" class="ShowHideLogo">
+                <div class="text-center logo">
+                  <img [src]="api+ 'assets/images/logo.png'">
+                </div>
+                <div class="text-center logo">
+                  <img [src]="api+'assets/images/logo-text-3.png'">
+                </div>
+              </div>
+              <div class="card-body pagebreak">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive tablePanel">
+                      <table id="tabledatafs" class="table table-bordered table-hover tableBodyScroll">
+                        <thead>
+                          <tr>
+                            <th>Area </th>
+                            <th>Asset ID</th>
+                            <th>Date of reading</th>
+                            <th>Brg ID </th>
+                            <!--<th>Value </th> -->
+                            <th>Main Fault</th>
+                            <th>Units mms/s, G </th>
+                            <th>Vibration Type</th>
+                            <th>Current Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td data-label="Area">{{value.CompanyArea}}</td>
+                            <td data-label="Asset ID">{{value.AssetId}}</td>
+                            <td data-label="Date of reading">{{value.DateValue |date:'MM-dd-yyyy'}}</td>
+                            <td data-label="Brg ID">{{value.Brgid}}</td>
+                            <!-- <td data-label="Value">{{value.value}}</td> -->
+                            <td data-label="Main Fault">{{value.MainFault}}</td>
+                            <td data-label="Units mms/s">{{value.UnitCodeName}}</td>
+                            <td data-label="VibrationType">{{value.VibrationType}}</td>
+                            <td [ngStyle]="{'background-color': value.Color}">&nbsp;</td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+
+                    <div class="graphImage">
+                      <div *ngIf="value.GraphImage">
+                        <img class="w-100" [src]="api2+'/Upload/Graph/Image/'+value.GraphImage" style="height:300px">
+                      </div>
+                      <div *ngIf="!value.GraphImage" class="graphImageNotShow">
+                        <p>No graph image found </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <div class="detailText">
+                      <h3>Primary Issue </h3>
+                      <p>{{value.PrimaryIssue}}</p>
+                    </div>
+
+                    <div class="detailText">
+                      <h3>Secondary Issue </h3>
+                      <p>{{value.SecondaryIssue}}</p>
+                    </div>
+
+                    <div class="detailText">
+                      <h3>Recommendations </h3>
+                      <p>{{value.LongDescription}}</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6" id="onlyForPage1" *ngFor="let image of sytemResponseImages; let i = index;"
+                    [hidden]="image.companyDetailId != value.CompanyDetailId">
+                    <div class="card">
+                      <div class="card-header">Asset ( Image )</div>
+                      <div class="card-body grayBg systemAssetImages">
+                        <span class="assetImages">
+                          <div class="slide" *ngFor="let image of image.images; let i = index;">
+                            <img [src]="api2 + image.IMageUrl" title="image" class="imgHeight"
+                              on-mouseover="getImgUrl(api2 + image.IMageUrl, 1)">
+                          </div>
+                          <div *ngIf="image.IMageUrl == ''">empty</div>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" id="onlyForPage2" *ngFor="let video of sytemResponseVideos"
+                    [hidden]="video.companyDetailId != value.CompanyDetailId">
+                    <div class="card" *ngIf="video.companyDetailId == value.CompanyDetailId">
+                      <div class="card-header">Asset ( Videos )</div>
+                      <div class="card-body grayBg systemAssetImages">
+                        <div class="slide" *ngFor="let video of video.videos">
+                          <video width="320" height="240" controls on-mouseover="getImgUrl(api2 + video.IMageUrl, 2)">
+                            <source [src]="api2 + video.IMageUrl" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  Historical Asset Alarms  -->
+                  <div class="col-md-12" *ngFor="let data of historicalAlarms"
+                    [hidden]="data.companyDetailId != value.CompanyDetailId">
+                    <div class="card historical-card">
+                      <div class="card-header">Historical Asset Alarms</div>
+                      <div class="table-responsive tablePanel">
+                        <table class="table table-bordered table-hover tableBodyScroll haaTable">
+                          <thead>
+                            <tr>
+                              <th *ngFor="let alarmColor of data.color">
+                                {{alarmColor.MonthYearName}}
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="cursor-pointer" *ngFor="let alarmColor of data.color"
+                                [ngStyle]="{'background-color': alarmColor.ColorValue}"></td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="hrHide">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagebreak">&nbsp;</div>
+      <div id="assetHistoryPrint" style="display: none;" class="pagebreak col-md-12">
+        <div id="displayOnPrint" class="ShowHideLogo">
+          <div class="text-center logo">
+            <img [src]="api+ 'assets/images/logo.png'">
+          </div>
+          <div class="text-center logo">
+            <img [src]="api+'assets/images/logo-text-3.png'">
+          </div>
+        </div>
+        <div class="heading-center">
+          <h3><u>ASSET HISTORY</u></h3>
+        </div>
+      </div>
+
+
+
+
+      <div class="col-md-12 pagebreak">
+        <div id="displayOnPrint" class="ShowHideLogo">
+          <div class="text-center logo">
+            <img [src]="api+ 'assets/images/logo.png'">
+          </div>
+          <div class="text-center logo">
+            <img [src]="api+'assets/images/logo-text-3.png'">
+          </div>
+        </div>
+        <div class="mainPad">
+          <div class="card">
+            <div id="assetHistoryPage" class="card-header">ASSET HISTORY</div>
+            <div class="card-body">
+
+              <div class="row ">
+                <div class="col-md-12" *ngIf="foundDataSummary">
+                  <div class="table-responsive tablePanel">
+                    <table id="historyTable" class="table table-bordered table-hover tableBodyScroll historyTable">
+                      <thead>
+                        <tr>
+
+                          <th *ngFor="let summary of summaryDetailHeadings | keyvalue: returnZero">
+                            <span *ngIf="summary.key == 'CompanyNo'">CMP NO</span>
+                            <span *ngIf="summary.key == 'CompanyArea'">AREA</span>
+                            <span *ngIf="summary.key == 'AssetId'">ASSET</span>
+                            <span
+                              *ngIf="summary.key != 'CompanyNo' && summary.key != 'CompanyArea' && summary.key != 'AssetId'">{{summary.key}}</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let data of summaryDetailData; let i = index;">
+
+                          <td *ngFor="let summary of summaryDetailHeadings | keyvalue: returnZero"
+                            [ngStyle]="{'background-color': data[summary.key+'']}">
+                            <span
+                            *ngIf="data[summary.key+ ''] != 'White' && data[summary.key+ ''] != 'Red' && data[summary.key+ ''] != 'Yellow' && data[summary.key+ ''] != 'Green' && data[summary.key+ ''] != 'Grey' && data[summary.key+ ''] != 'N/R'">{{data[summary.key+'']}}</span>
+                              <!-- Syscraft check -->
+                              <!-- <span *ngIf="data[summary.key] != 'White' && data[summary.key] != 'Red' && data[summary.key] != 'Yellow' && data[summary.key] != 'Green' && data[summary.key] != 'Grey' && data[summary.key] != 'N/R'">{{data[summary.key]}}</span> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="p-4 m-auto" *ngIf="notfoundDataSummary">
+                  Not Found Data
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+<!-- Image PopOut -->
+<div class="graphDataTable">
+  <div class="customModal recommended-modal">
+    <div id="alarmReport" class="custom-modal d-none" [class.showModal]="showModal" role="dialog">
+      <div class="modal-content">
+        <div class="fa fa-times crossIcon" (click)="hideModal()"></div>
+        <div *ngIf="indexNum==1">
+          <img [src]="imgUrl" alt="" *ngIf="imgUrl">
+        </div>
+        <div *ngIf="indexNum==2">
+          <video width="500" height="500" controls>
+            <source [src]="imgUrl" type="video/mp4">
+          </video>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white"> Please Wait. </p>
+</ngx-spinner>

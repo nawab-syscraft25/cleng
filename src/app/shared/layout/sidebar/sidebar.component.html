@@ -1,0 +1,93 @@
+<div class="sidebar" [class.show]="showsidebar">
+  <div class="logo">
+    <div class="logoInner1 cursor-pointer" [routerLink]="['/admin/dashboard']">
+
+      <img src="assets/images/full-logo.png" class="w-auto" alt="image" style="height: 70px">
+    </div>
+
+  </div>
+  <div class="sidebarWrapper">
+    <div id="navigation" class="collapse navbar-collapse justify-content-end addInResponsive">
+      <div class="userPic">
+        <span class="uImages"></span>
+        <span class="uName">{{userName}}</span>
+      </div>
+      <div class="search-field mr-auto">
+        <form class="d-flex align-items-center h-100" action="#">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" class="form-control bg-transparent border-0" placeholder="Search ...">
+          </div>
+        </form>
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a (click)="qrScanCode()" class="nav-link"><i aria-hidden="true" class="fa fa-qrcode"></i>Scan
+            QR</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#pablo" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user" aria-hidden="true"></i> &nbsp;<span>{{userName}} </span>
+          </a>
+          <ul class="dropdown-menu profileNotification1" style="background-color:#181824 !important">
+            <li><a [routerLink]="['/forgot-password']"><i class="fa fa-unlock-alt" aria-hidden="true"></i>&nbsp; Reset
+                Password</a></li>
+            <li><a [routerLink]="['/login']" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <ul>
+      <li (click)="hideClass()" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/dashboard']">
+          <span class="icon-bg"><i class="fa fa-dashboard"></i></span>
+          <span class="menu-title">Dashboard</span>
+        </a>
+      </li>
+      <li (click)="hideClass()" *ngIf="accountType == 'Admin'" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/user-list']">
+          <span class="icon-bg"><i class="fa fa-industry"></i></span>
+          <span class="menu-title">User Setup</span>
+        </a>
+      </li>
+      <li (click)="hideClass()" *ngIf="accountType == 'Admin'" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/company']">
+          <span class="icon-bg"><i class="fa fa-industry"></i></span>
+          <span class="menu-title">Company</span>
+        </a>
+      </li>
+      <!-- Full CM Survey Report -->
+      <li (click)="hideClass()" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/full-cm-report-list']">
+          <span class="icon-bg"><i class="fa fa-area-chart"></i></span>
+          <span class="menu-title">CM Survey PDF Report</span>
+        </a>
+      </li>
+      <li (click)="hideClass()" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/short-cm-report']">
+          <span class="icon-bg"><i class="fa fa-file-o" aria-hidden="true"></i></span>
+          <span class="menu-title">Short CM Survey Report</span>
+        </a>
+      </li>
+      <li (click)="hideClass()" class="nav-item" (click)="prescriptiveMaintenance()" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/prescriptive-maintenance']">
+          <span class="icon-bg"><i class="fa fa-area-chart"></i></span>
+          <span class="menu-title">Prescriptive Maintenance</span>
+        </a>
+      </li>
+      <li (click)="hideClass()" *ngIf="accountType == 'Admin'" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/admin/brg-setup']">
+          <span class="icon-bg"><i class="fa fa-cogs"></i></span>
+          <span class="menu-title">BRG Setup</span>
+        </a>
+      </li>
+    </ul>
+    <div class="bottomNav" (click)="hideClass()" *ngIf="accountType == 'Admin'">
+      <a class="btn-orange" (click)="reportWizard()" [routerLink]="['/admin/report-wizard']"><span
+          class="menu-title">Report Wizard</span></a>
+    </div>
+  </div>
+  <div class="sidebarBg"></div>
+</div>

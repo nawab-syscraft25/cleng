@@ -1,0 +1,155 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-6 col-sm-6">
+        <div class="pageHeader mb-3">
+          <h1> <a>{{companyName}}</a> Reports</h1>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="selectOptions1 float-right mb-3">
+          <select class="form-control" [(ngModel)]="companyId" *ngIf="assign" #fullCmReportListFilter
+            (change)="getCompanyId(fullCmReportListFilter.value)" style="width: 180px;">
+            <option *ngFor="let data of assignedCompany" [value]="data.companyId">{{data.companyName}}
+            </option>
+          </select>
+          <div *ngIf="noAssign">No Company Assigned To User</div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row" id="printDiv">
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">Full CM Report List</div>
+              <div class="card-body">
+                <form action="#">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="my-custom-scrollbar">
+                        <div class="table-responsive tablePanel table-wrapper-scroll-y">
+                          <table id="dtBasicExample" class="table table-bordered table-hover tableBodyScroll">
+                            <thead>
+                              <tr>
+                                <th>Report Date</th>
+                                <th>Report Title</th>
+                                <th>Report Status</th>
+                                <th width="200px" class="text-center">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let data of companyReportDetailList">
+                                <td data-label="report date">{{data.reportDate | date :
+                                  'dd MMMM yyyy'}}</td>
+                                <td data-label="eng name">{{data.reportTitle}}</td>
+                                <td data-label="report status">{{data.reportStatus}}
+                                </td>
+                                <td data-label="action" class="text-center">
+                                  <div *ngIf="data.archived == 1">
+                                    <a [href]="api+data.pdfDocument" target="_blank">
+                                      <img src="assets/images/pdf-icon.png" style="width: 25px;">
+                                    </a>&nbsp;
+                                    <a title="delete"
+                                      (click)="deleteReport(data.companyReportDetailId, data.companyReportDetailArchivId)">
+                                      <i class="fa-lg fa fa-trash text-danger"></i>
+                                    </a>
+                                  </div>
+                                  <div *ngIf="data.archived == 0 && data.reportStatus=='Publish'">
+                                    <a title="Edit" (click)="editDraft(data)">
+                                      <i class="fa-lg fa fa-pencil text-success"></i>
+                                    </a>&nbsp;
+                                    <a (click)="viewFullCmReport(data)" title="View"><i
+                                        class="fa fa-eye fa-lg"></i></a>&nbsp;
+                                    <img (click)="print(data)" class="cursor-pointer" title="Print"
+                                      src="assets/images/pdf-icon.png" style="width: 25px;">&nbsp;
+                                    <a title="delete"
+                                      (click)="deleteReport(data.companyReportDetailId, data.companyReportDetailArchivId)">
+                                      <i class="fa-lg fa fa-trash text-danger"></i>
+                                    </a>
+                                  </div>
+                                  <div *ngIf="data.archived == 0 && data.reportStatus=='Draft'">
+                                    <a title="Edit" (click)="editDraft(data)">
+                                      <i class="fa-lg fa fa-pencil text-success"></i>
+                                    </a>&nbsp;
+                                    <a title="delete"
+                                      (click)="deleteReport(data.companyReportDetailId, data.companyReportDetailArchivId)">
+                                      <i class="fa-lg fa fa-trash text-danger"></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr *ngIf="notFound">
+                                <td colspan="4" class="text-center p-3">No Record Found
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <form #form="ngForm" name="loginForm" (ngSubmit)="pdfDetailsSubmit(form)" novalidate>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" class="d-block datePicker pdfDatePicker">
+                          <mat-label>Report Date</mat-label>
+                          <input matInput [matDatepicker]="reportDatePicker" #reportDate="ngModel" name="reportDate"
+                            [(ngModel)]="pdfDetails.reportDate" placeholder="Report Date" required />
+                          <mat-datepicker-toggle matSuffix [for]="reportDatePicker">
+                          </mat-datepicker-toggle>
+                          <mat-datepicker #reportDatePicker></mat-datepicker>
+                          <mat-error *ngIf="reportDate.hasError('required')">Report date is
+                            required</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" class="d-block">
+                          <mat-label>Report title</mat-label>
+
+                          <input matInput type="text" class="form-control" placeholder="Report title"
+                            #reportTitle="ngModel" name="reportTitle" [(ngModel)]="pdfDetails.reportTitle" required>
+                          <mat-error *ngIf="reportTitle.hasError('required')">Report title is
+                            required</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group mt-2">
+                        <span id="myButton" class="cursor-pointer">Attach PDF &nbsp;<img
+                            src="assets/images/pdf-icon.png" style="width: 25px; margin-top:-3px;"></span>
+                        <input class="pdfInputFile" type="file" (change)="uploadPdf($event)" placeholder="PDF Document">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-black mb-3 pt-1 pb-1">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<app-full-cm-report-detail class="d-none" #pdfReport></app-full-cm-report-detail>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white"> Please Wait. </p>
+</ngx-spinner>

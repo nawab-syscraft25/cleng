@@ -1,0 +1,42 @@
+.form-group {
+    span { display: none; }
+    
+    &.has-error {
+        .form-control{
+            border: 2px solid #F34636 !important;
+            &:hover{
+                border-color: #F34636 !important;
+            }
+        }
+        span {
+            display: block;
+        }
+    }
+}
+.text-danger{
+    color: #F34636 !important;
+}
+button{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    @media (max-width:767px ) {
+        position: unset;
+        margin: 15px 0px;
+        transform: none;
+    }
+}
+.custom-css{
+    .form-control{
+        border-color: #DADADA !important;
+        background-color: transparent !important;
+        height: 40px;
+        &:hover{
+            border: 2px solid #2B0802 !important;
+        }
+        &:focus{
+            border: 2px solid #0505b3 !important;
+        }
+    }
+    
+}

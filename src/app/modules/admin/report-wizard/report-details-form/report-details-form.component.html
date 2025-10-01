@@ -1,0 +1,67 @@
+<form #reportDetailsForm="ngForm" (ngSubmit)="reportDetailsForm.valid && saveCompanyReportDetails()">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group custom-class" [class.has-error]="isInvalidField(reportDetailsForm, reportDateInput)">
+        <label>Report Date</label>
+        <mat-form-field appearance="outline" class="d-block datePicker">
+          <input matInput [matDatepicker]="datePicker" (dateChange)="filterChanged()" ng name="reportDate"
+            placeholder1="Report Date" [(ngModel)]="detailsForm.reportDate" #reportDateInput="ngModel" required />
+          <mat-datepicker-toggle matSuffix [for]="datePicker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+        <span class="text-danger">Please select report date</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group custom-css" [class.has-error]="isInvalidField(reportDetailsForm, useIdInput)">
+
+        <label>Engineer Name</label>
+        <select class="form-control" placeholder="Engineer Name" name="userId" [(ngModel)]="detailsForm.userId"
+          #useIdInput="ngModel" (change)="filterChanged()" required>
+          <option *ngFor="let engineer of engineers" [value]="engineer.userId">{{engineer.contactName}}
+          </option>
+        </select>
+        <span class="text-danger">Please select the engineer name</span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group custom-css" [class.has-error]="isInvalidField(reportDetailsForm, collectedBy)">
+
+        <label>Collected By</label>
+        <input class="form-control" name="collectedBy" [(ngModel)]="detailsForm.collectedBy" #collectedBy="ngModel"
+          (change)="filterChanged()" required>
+        <span class="text-danger">Please enter the Collected By</span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group custom-css" [class.has-error]="isInvalidField(reportDetailsForm, reportTitle)">
+        <label>Report Title</label>
+        <input class="form-control" name="reportTitle" [(ngModel)]="detailsForm.reportTitle" #reportTitle="ngModel"
+          (change)="filterChanged()" required>
+        <span class="text-danger">Please enter the Report Title</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group custom-css" [class.has-error]="isInvalidField(reportDetailsForm, companyIdInput)">
+
+        <label>Company Name</label>
+        <select class="form-control" name="companyId" placeholder="Company Name" [(ngModel)]="detailsForm.companyId"
+          #companyIdInput="ngModel" (change)="filterChanged()" required>
+          <option *ngFor="let company of companies" [value]="company.companyId">{{company.companyName}}
+          </option>
+        </select>
+        <span class="text-danger">Please select company</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-black pl-4 pr-4 mt-1">Create</button>
+    </div>
+
+  </div>
+
+
+
+</form>

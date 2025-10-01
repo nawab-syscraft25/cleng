@@ -1,0 +1,142 @@
+<div class="mainContent">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pageHeader d-inline-block mb-3">
+          <h1 class="m-0">Add Users</h1>
+        </div>
+        <div class="addUser float-right"><a [routerLink]="['/admin/user-list']" class="text-dark"><i
+              class="fa fa-reply-all fa-2x"></i></a></div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">Add Users</div>
+          <div class="card-body">
+            <form #addUserForm="ngForm" (ngSubmit)="addUserForm.valid && createUser(addUserForm)" novalidate>
+              <div class="create-user border-0 mb-0">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Account Type</mat-label>
+                        <mat-select id="cpny" class="form-control border-0" #accountTypeId="ngModel"
+                          [(ngModel)]="userFormData.accountTypeId" name="accountTypeId" required>
+                          <mat-option *ngFor="let data of accountType"
+                            [value]="data.globalCodeId">{{data.codeName}}</mat-option>
+
+                        </mat-select>
+                        <mat-error *ngIf="accountTypeId.hasError('required')">
+                          Please select your account
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="right-button">
+                      <button type="submit" disabled class="btn btn-black commonClass">Add Admin Permission</button>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Full Name</mat-label>
+                        <input matInput class="form-control" type="text" #contactName="ngModel"
+                          [(ngModel)]="userFormData.contactName" name="contactName" required />
+                        <mat-error *ngIf="contactName.hasError('required')">
+                          Full name is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group" [class.userValidClass]="userNameValidation">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input matInput class="form-control" type="text" #userName="ngModel"
+                          (keyup)="validUserName(userName.value)" (blur)="validUserName(userName.value)"
+                          [(ngModel)]="userFormData.userName" name="userName" required />
+                        <mat-error *ngIf="userName.hasError('required')">
+                          Username is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-error class="show-error" *ngIf="userNameValidation">
+                        Username is already exist.
+                      </mat-error>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput class="form-control" type="email" class="form-control" name="email"
+                          #email="ngModel" [(ngModel)]="userFormData.email" placeholder="Email" required />
+                        <mat-error *ngIf="email.hasError('required')">
+                          Email is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Company</mat-label>
+                        <mat-select id="cpny" #companyId="ngModel" name="companyId"
+                          [(ngModel)]="userAssignCompany.companyId" class="form-control border-0" name="Company"
+                          (selectionChange)="onChangeDropdown(companyId.value)">
+                          <mat-option *ngFor="let data of companyDropdownData"
+                            [value]="data?.companyId">{{data.companyName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="right-button">
+                      <a (click)="addCompany()" class="btn btn-black commonClass">Add Selected Company</a>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <hr>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="table-responsive tablePanel">
+                      <table class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Company</th>
+                            <th width="20%" class="text-center">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let company of companyNameList; let i = index">
+                            <td>{{company.companyName}} </td>
+                            <td class="lastChild">
+                              <div class="iconFont"><i (click)="deleteCompany(company)" class="fa fa-trash-o colorRed"
+                                  aria-hidden="true"></i></div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="noRecordFound">
+                            <td colspan="2" class="text-center">No Record Found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="d-flex">
+                      <div class="addUser pull-left"><a (click)="windowScroll()"
+                          class="btn btn-black commonClass">Cancel</a></div>
+                      <button type="submit" class="btn btn-black commonClass">save</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
