@@ -8,12 +8,21 @@ const port = process.env.PORT || 8888;
 // Enable gzip compression
 app.use(compression());
 
-// Serve static files from the dist/cleng-v2-2 directory
-app.use(express.static(path.join(__dirname, 'dist/cleng-v2-2')));
+// Serve static files from the dist/cleng directory
+const staticPath = path.join(__dirname, 'dist/cleng');
+console.log('Serving static files from:', staticPath);
+app.use(express.static(staticPath));
 
 // Handle SPA routing - return the index file for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/cleng-v2-2/index.html'));
+  const indexPath = path.join(staticPath, 'index.html');
+  console.log('Serving index file from:', indexPath);
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.status(500).send('Error loading the application');
+    }
+  });
 });
 
 // Start the server

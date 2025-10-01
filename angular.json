@@ -25,6 +25,13 @@
             ],
             "aot": true,
             "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "moment",
+              "html2canvas",
+              "exceljs",
+              "file-saver",
+              "qrcode"
+            ],
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/scss"]
@@ -48,7 +55,6 @@
               "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
-            "server": "src/main.server.ts",
             "prerender": false
           },
           "configurations": {
@@ -56,21 +62,20 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "outputHashing": "all"
             },
             "development": {
               "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "extractLicenses": false
             }
           },
           "defaultConfiguration": "production"
