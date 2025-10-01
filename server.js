@@ -8,8 +8,8 @@ const port = process.env.PORT || 8888;
 // Enable gzip compression
 app.use(compression());
 
-// Serve static files from the dist/cleng directory
-const staticPath = path.join(__dirname, 'dist/cleng');
+// Serve static files from the dist/cleng-v2-2/browser directory
+const staticPath = path.join(__dirname, 'dist/cleng-v2-2/browser');
 console.log('Serving static files from:', staticPath);
 app.use(express.static(staticPath));
 
