@@ -61,7 +61,6 @@
             "production": {
               "optimization": false,
               "aot": false,
-              "vendorChunk": true,
               "budgets": [
                 {
                   "type": "initial",
