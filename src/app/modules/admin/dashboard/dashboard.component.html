@@ -83,13 +83,15 @@
                 Plant Machines Condition ( {{reportDate | date: 'dd-MM-yyyy'}} )
               </div>
               <div class="col-md-3 col-sm-3">
-                <div class="selectOptions">
-                  <select class="form-control" #filterValue (change)="onSelect(filterValue.value)">
-                    <option selected disabled>Filter Alarms</option>
-                    <option value="all">All</option>
-                    <option value="6"> Caution</option>
-                    <option value="7"> Warning</option>
-                  </select>
+                <div class="alarmFilterBtn">
+                  <div class="selectOptions">
+                    <select class="form-control" #filterValue (change)="onSelect(filterValue.value)">
+                      <option selected disabled>Filter Alarms</option>
+                      <option value="all">All</option>
+                      <option value="6"> Caution</option>
+                      <option value="7"> Warning</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>

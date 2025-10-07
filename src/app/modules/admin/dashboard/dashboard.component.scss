@@ -18,6 +18,12 @@
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
 }
+.alarmFilterBtn
+{
+    display: flex;
+    justify-content: flex-end;
+    grid-gap: 10px;
+}
 .customModal {
     position: absolute;
     top: 30%;

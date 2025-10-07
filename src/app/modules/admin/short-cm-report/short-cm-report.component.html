@@ -26,9 +26,37 @@
                 <form action="#">
                   <div class="row">
                     <div class="col-md-12">
+                      <!-- <div class="customdatePicker">
+                        <input type="date" id="" name="" placeholder="Start Date">
+                        <input type="date" id="" name="" placeholder="End Date">
+                      </div> -->
+                      <!-- 🔹 Custom Date Filter UI -->
+                      <div class="customdatePicker report-filter">
+                        <mat-form-field appearance="outline">
+                          <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" name="startDate"
+                            placeholder="Start Date" />
+                          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #startPicker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" name="endDate"
+                            placeholder="End Date" />
+                          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #endPicker></mat-datepicker>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" class="btn-orange">
+                           Generate multiple reports 
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
                       <div class="my-custom-scrollbar">
                         <div class="table-responsive tablePanel table-wrapper-scroll-y">
-                          <table id="dtBasicExample" class="table table-bordered table-hover tableBodyScroll">
+                          <table id="dtBasicExample" class="table cm-report-tbl table-bordered table-hover tableBodyScroll table-striped">
                             <thead>
                               <tr>
                                 <th>Report Date</th>

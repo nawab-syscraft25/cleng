@@ -14,7 +14,7 @@
           <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
           <div class="card-header">Add Company</div>
           <div class="card-body">
-            <form #addCompanyForm="ngForm" (ngSubmit)="addCompanyForm.valid && addCompany(addCompanyForm)" novalidate>
+            <form class="add-company-form" #addCompanyForm="ngForm" (ngSubmit)="addCompanyForm.valid && addCompany(addCompanyForm)" novalidate>
               <div class="row">
                 <div class="col-sm-12">
                   <div class="create-user border-0 mb-0">
@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="col-sm-12">
-                  <div class="table-responsive tablePanel">
+                  <div class="table-responsive tablePanel add-company-table">
 
 
 
@@ -72,7 +72,7 @@
                           <input class="pdfInputFile" type="file" name="image_{{i}}" (change)="uploadPdf($event, i)">
 
                         </td>
-                        <td class="text-center">
+                        <td class="text-center add-company-option">
                           <div class="cursor-pointer" (click)="removeField(field.rownum)">
                             Remove</div>
                           <span *ngIf="last" class="cursor-pointer" (click)="addMoreField()">Add More </span>&nbsp;

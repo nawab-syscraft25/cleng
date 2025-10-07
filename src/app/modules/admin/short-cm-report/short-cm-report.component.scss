@@ -1,3 +1,12 @@
+.customdatePicker
+{
+    display: flex;
+    padding: 0px;
+    justify-content: flex-end;
+    flex-flow: wrap;
+    align-items: flex-start !important;
+    grid-gap: 15px;
+}
 .mainContent{
     .pageHeader {
         margin: 0 0 5px 0 !important;
@@ -10,6 +19,29 @@
         }
     }
 }
+.customdatePicker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  mat-form-field {
+    width: 180px;
+  }
+
+  button {
+    height: 56px;
+    font-weight: 500;
+    text-transform: none;
+    border-radius: 8px;
+  }
+}
+
+/* Optional: make placeholders more visible */
+::ng-deep .mat-mdc-text-field-wrapper input::placeholder {
+  color: #6b7280 !important; /* subtle gray */
+  opacity: 1;
+}
+
 
 @media (max-width:568px){
     .selectOptions{
@@ -29,4 +61,18 @@
     width: 20px;
     cursor: pointer;
 }
-
+.customdatePicker button
+{
+    height: 34px;
+    min-width: 70px;
+    border-radius: 5px;
+}
+.btn-orange {
+    color: #fff !important;
+    border: 1px solid #ef7603 !important;
+    border-radius: 4px;
+}
+.btn-orange, .btn-orange:hover {
+    background-color: #ef7603 !important;
+    transition: .5s;
+}

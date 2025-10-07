@@ -13,6 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-short-cm-report',
@@ -23,32 +26,24 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
   ],
   templateUrl: './short-cm-report.component.html',
   styleUrl: './short-cm-report.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ShortCmReportComponent {
-  // Syscraft comment
-  // @ViewChild('TABLE') table: ElementRef;
   @ViewChild('TABLE') table!: ElementRef;
 
-
   api = BaseUrl.apiUrl;
-  ShortCMTable: string[] = ['CMP No',
-    'Area', 'Asset Id', 'Alarm Color',
-    'Primary Issues', 'Secondary Issues',
-    'Recommendations', 'Sap No', 'Priority'];
+  ShortCMTable: string[] = ['CMP No', 'Area', 'Asset Id', 'Alarm Color', 'Primary Issues', 'Secondary Issues', 'Recommendations', 'Sap No', 'Priority'];
   assignedCompany: any;
   userId: any;
   ShortCMReportList: any;
   companyId: number = 0;
-  // Syscraft comment
-  // noAssign: boolean;
-  // assign: boolean;
-  // companyName: string;
-  // reportDate: string;
   noAssign!: boolean;
   assign!: boolean;
   companyName!: string;
@@ -64,6 +59,10 @@ export class ShortCmReportComponent {
   showDatesRow: boolean = false;
   shortCMResponsesListData: any = [];
 
+  // 🔹 Added UI-only variables for filter inputs
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+
   constructor(
     private localStorageService: LocalStorageService,
     private globalService: GlobalCodeService,
@@ -75,24 +74,18 @@ export class ShortCmReportComponent {
   ) {
     this.searchFilterSub = this.globalService.searchFilter$.subscribe(value => {
       this.searchFilter(value);
-    })
+    });
   }
 
   ngOnInit(): void {
     this.bindDropdown();
     const user = this.localStorageService.getUserCredentials();
     this.userId = user.userId;
-    this.accountType = user.accountType.accountTypeName
+    this.accountType = user.accountType.accountTypeName;
     const compId = this.localStorageService.getCompanyId();
-    if (compId.companyId == 0) {
-      this.companyId = 0;
-    } else {
-      this.companyId = compId.companyId;
-      this.companyName = compId.companyName;
-    }
-
+    this.companyId = compId.companyId || 0;
+    this.companyName = compId.companyName;
     this.getCompanyReportDetails();
-
   }
 
   getCompanyReportDetails() {

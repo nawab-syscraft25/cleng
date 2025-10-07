@@ -13,7 +13,7 @@
           <div class="card-header">Add Users</div>
           <div class="card-body">
             <form #addUserForm="ngForm" (ngSubmit)="addUserForm.valid && createUser(addUserForm)" novalidate>
-              <div class="create-user border-0 mb-0">
+              <div class="create-user add-user border-0 mb-0">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -103,7 +103,7 @@
                     <hr>
                   </div>
                   <div class="col-lg-12">
-                    <div class="table-responsive tablePanel">
+                    <div class="table-responsive tablePanel add-user-table">
                       <table class="table table-bordered table-hover">
                         <thead>
                           <tr>

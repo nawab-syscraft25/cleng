@@ -19,10 +19,12 @@
                 <div class="authForm">
                   <div class="row">
                     <div class="col-sm-12">
-                      <h3 class="text-center">Welcome to C.A.M - CLENG Asset Monitoring</h3>
+                      <div class="login-welcome">
+                        <h3 class="text-center">Welcome to C.A.M - CLENG Asset Monitoring</h3>
+                      </div>
                     </div>
                   </div>
-                  <form class="was-validated1 responsiveForm" #form="ngForm" name="loginForm"
+                  <form class="was-validated1 responsiveForm login-form" #form="ngForm" name="loginForm"
                     (ngSubmit)="form.valid && submit(form)" novalidate>
                     <div class="row">
                       <div class="col-sm-12">
@@ -75,13 +77,15 @@
             <div class="text-center pt-5">
               <div class="row">
                 <div class="col-md-1"></div>
-                <div class="col-md-10">
-                  If you are a new customer and would like information on how our unique CAM reliability plateform can
-                  improve your plant health
-                  please visit <a target="_blank" href="https://www.cleng.co.uk/">www.CLENG.co.uk</a> or contact us on
-                  <a href="mailto:info@CLENG.co.uk">info&#64;CLENG.co.uk </a> or call <a href="tel:+44 (0) 151 345 6784"
-                    style="color: inherit !important;">+44 (0) 151 345 6784</a>
+                <div class="col-md-11">
+                  <div class="login-footer">
+                    If you are a new customer and would like information on how our unique CAM reliability plateform can
+                    improve your plant health
+                    please visit <a target="_blank" href="https://www.cleng.co.uk/">www.CLENG.co.uk</a> or contact us on
+                    <a href="mailto:info@CLENG.co.uk">info&#64;CLENG.co.uk </a> or call <a
+                      href="tel:+44 (0) 151 345 6784" style="color: inherit !important;">+44 (0) 151 345 6784</a>
                     <!-- info@CLENG.co.uk -->
+                  </div>
                 </div>
                 <div class="col-md-1"></div>
               </div>
