@@ -1,4 +1,4 @@
-<form #reportDetailsForm="ngForm" (ngSubmit)="reportDetailsForm.valid && saveCompanyReportDetails()">
+<form class="report-form-wizard" #reportDetailsForm="ngForm" (ngSubmit)="reportDetailsForm.valid && saveCompanyReportDetails()">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group custom-class" [class.has-error]="isInvalidField(reportDetailsForm, reportDateInput)">

@@ -151,8 +151,103 @@ th.mat-column-position,
 td.mat-column-position {
   padding-left: 4px;
 }
-
-
+.brg-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper
+{
+  height: 38px;
+}
+.add-user .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper,
+.add-user .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper,
+.full-report-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper,
+.report-form-wizard .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper,
+.add-company-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper
+{
+  height: 43px !important;
+}
+.add-user .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.full-report-form .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.brg-form .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.report-form-wizard .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.add-company-form .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix
+{
+  padding: 6px 0px;
+  min-height: auto;
+}
+.add-user .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.full-report-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.brg-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.report-form-wizard .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix,
+.add-company-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix
+{
+  padding: 10px 0px;
+  min-height: auto;
+}
+.add-user .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label,
+.add-user .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label,
+.full-report-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label,
+.brg-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label,
+.report-form-wizard .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label,
+.add-company-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label
+{
+  top: 18px;
+}
+.add-user .mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above,
+.add-user .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above,
+.full-report-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above,
+.brg-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above,
+.report-form-wizard .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above,
+.add-company-form .mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above
+{
+  top: 30px;
+}
+.add-user .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece
+{
+  border-color: #e1e1e1;
+}
+.report-filter .mat-mdc-form-field .mat-mdc-text-field-wrapper
+{
+    height: 37px;
+    font-size: 14px;
+}
+.report-filter .mat-mdc-form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix
+{
+    padding: 8px 0px;
+    height: 37px;
+    min-height: auto;
+}
+.report-filter .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece
+{
+  border-color: #e1e1e1;
+}
+.mat-datepicker-content {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12) !important;
+    background-color: #fff !important;
+    color: rgba(0, 0, 0, .87) !important;
+    border-radius: 5px !important;
+}
+table
+{
+    border-color: #d5d5d5 !important;
+}
+.add-company-table tr td input
+{
+  font-size: 12px;
+  border: 1px solid;
+}
+.add-company-table tr td.uploadImage span
+{
+  font-size: 14px;
+  background-color: transparent;
+}
+.add-company-option .cursor-pointer
+{
+  font-size: 14px;
+  padding-bottom: 0px;
+  background-color: transparent;
+}
+.add-company-option a
+{
+  background-color: transparent;
+}
 
 // .only-show-on-hover:hover{
 //   .modal{
@@ -167,3 +262,5 @@ td.mat-column-position {
 
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// custom css start
